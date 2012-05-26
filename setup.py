@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name='tw2.bootstrap',
     version='0.1',
-    description='',
+    description=open('README.md').read(),
     author='Moritz Schlarb',
     author_email='mail@moritz-schlarb.de',
     url='',
