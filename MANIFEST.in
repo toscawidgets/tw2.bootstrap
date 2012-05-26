@@ -1,0 +1,2 @@
+recursive-include tw2/bootstrap/templates *
+recursive-include tw2/bootstrap/static *
