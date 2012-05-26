@@ -6,23 +6,16 @@ These samples will appear in the WidgetBrowser
 See http://toscawidgets.org/documentation/WidgetBrowser for more information
 """
 
-import tw2.core as twc
-import tw2.forms as twf
-import widgets
+from tw2.forms.samples import DemoChildren
 
+from widgets import *
 
-
-class DemoChildren(twc.CompoundWidget):
-    title = twf.TextField()
-    priority = twf.SingleSelectField(options=['', 'Normal', 'High'])
-    description = twf.TextArea()
-
-class DemoBootstrapHorizontalForm(widgets.BootstrapHorizontalForm, DemoChildren):
+class DemoBootstrapHorizontalForm(BootstrapHorizontalForm, DemoChildren):
     legend = 'Hi, I\'m form!'
-    buttons = [twf.SubmitButton(), twf.ResetButton()]
+    buttons = [BootstrapSubmitButton(), BootstrapResetButton()]
 
-class DemoBootstrapButton(widgets.BootstrapButton):
+class DemoBootstrapButton(BootstrapButton):
     pass
 
-class DemoBootstrapSubmitButton(widgets.BootstrapSubmitButton):
+class DemoBootstrapSubmitButton(BootstrapSubmitButton):
     pass

@@ -3,7 +3,7 @@ import tw2.forms as twf
 #import tw2.jquery as twj
 
 __all__ = ['bootstrap_css', 'bootstrap_responsive_css', 'bootstrap_js',
-           'BootstrapButton', 'BootstrapSubmitButton',
+           'BootstrapButton', 'BootstrapSubmitButton', 'BootstrapResetButton',
            'BootstrapHorizontalLayout', 'BootstrapHorizontalForm',
            ]
 
@@ -35,6 +35,9 @@ class BootstrapButton(Bootstrap, twf.Button):
 
 class BootstrapSubmitButton(BootstrapButton, twf.SubmitButton):
     css_class = 'btn btn-primary'
+
+class BootstrapResetButton(BootstrapButton, twf.ResetButton):
+    pass
 
 class BootstrapHorizontalLayout(Bootstrap, twf.widgets.BaseLayout):
     __doc__ = """
