@@ -31,6 +31,10 @@ def test_every_widget_covered():
     # They are excluded for various reasons, mostly because they cannot be
     # rendered on their own.
     excluded = [
+        twb.bootstrap_css,
+        twb.bootstrap_responsive_css,
+        twb.bootstrap_js,
+
         twb.Bootstrap,
         twb.InputField,
     ]
@@ -229,3 +233,158 @@ class TestHorizontalForm(WidgetTest):
       </fieldset>
     </form>
     """
+
+
+class TestCalendarDatePicker(WidgetTest):
+    widget = twb.CalendarDatePicker
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestCalendarDateTimePicker(WidgetTest):
+    widget = twb.CalendarDateTimePicker
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestCheckBoxList(WidgetTest):
+    widget = twb.CheckBoxList
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestCheckBoxTable(WidgetTest):
+    widget = twb.CheckBoxTable
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestDataGrid(WidgetTest):
+    widget = twb.DataGrid
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestFieldSet(WidgetTest):
+    widget = twb.FieldSet
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestForm(WidgetTest):
+    widget = twb.Form
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestFormPage(WidgetTest):
+    widget = twb.FormPage
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestGridLayout(WidgetTest):
+    widget = twb.GridLayout
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestImageButton(WidgetTest):
+    widget = twb.ImageButton
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestLabel(WidgetTest):
+    widget = twb.Label
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestListFieldSet(WidgetTest):
+    widget = twb.ListFieldSet
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestListForm(WidgetTest):
+    widget = twb.ListForm
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestListLayout(WidgetTest):
+    widget = twb.ListLayout
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestMultipleSelectField(WidgetTest):
+    widget = twb.MultipleSelectField
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestMultipleSelectionField(WidgetTest):
+    widget = twb.MultipleSelectionField
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestPostlabeledCheckBox(WidgetTest):
+    widget = twb.PostlabeledCheckBox
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestPostlabeledPartialRadioButton(WidgetTest):
+    widget = twb.PostlabeledPartialRadioButton
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestRadioButtonList(WidgetTest):
+    widget = twb.RadioButtonList
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestRadioButtonTable(WidgetTest):
+    widget = twb.RadioButtonTable
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestRowLayout(WidgetTest):
+    widget = twb.RowLayout
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestSelectionField(WidgetTest):
+    widget = twb.SelectionField
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestSeparatedCheckBoxTable(WidgetTest):
+    widget = twb.SeparatedCheckBoxTable
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestSeparatedRadioButtonTable(WidgetTest):
+    widget = twb.SeparatedRadioButtonTable
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestSingleSelectField(WidgetTest):
+    widget = twb.SingleSelectField
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestSpacer(WidgetTest):
+    widget = twb.Spacer
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestTableForm(WidgetTest):
+    widget = twb.TableForm
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestTableFieldSet(WidgetTest):
+    widget = twb.TableFieldSet
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestTableLayout(WidgetTest):
+    widget = twb.TableLayout
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestVerticalCheckBoxTable(WidgetTest):
+    widget = twb.VerticalCheckBoxTable
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestVerticalRadioButtonTable(WidgetTest):
+    widget = twb.VerticalRadioButtonTable
+    expected = """<TODO>How should this actually work?</TODO>"""

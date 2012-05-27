@@ -11,6 +11,9 @@ __all__ = [
     'bootstrap_css',
     'bootstrap_responsive_css',
     'bootstrap_js',
+
+    'Bootstrap',
+
     'InputField',
     'TextField',
     'TextArea',
@@ -27,6 +30,49 @@ __all__ = [
     'ResetButton',
     'HorizontalLayout',
     'HorizontalForm',
+
+    'CalendarDatePicker',
+    'CalendarDateTimePicker',
+    'CheckBoxList',
+    'CheckBoxTable',
+
+    'DataGrid',
+
+    'FieldSet',
+    'Form',
+    'FormPage',
+
+    'GridLayout',
+
+    'ImageButton',
+
+    'Label',
+    'ListFieldSet',
+    'ListForm',
+    'ListLayout',
+
+    'MultipleSelectField',
+    'MultipleSelectionField',
+
+    'PostlabeledCheckBox',
+    'PostlabeledPartialRadioButton',
+
+    'RadioButtonList',
+    'RadioButtonTable',
+    'RowLayout',
+
+    'SelectionField',
+    'SeparatedCheckBoxTable',
+    'SeparatedRadioButtonTable',
+    'SingleSelectField',
+    'Spacer',
+
+    'TableFieldSet',
+    'TableForm',
+    'TableLayout',
+
+    'VerticalCheckBoxTable',
+    'VerticalRadioButtonTable',
 ]
 
 
@@ -144,7 +190,7 @@ class HorizontalLayout(Bootstrap, twf.widgets.BaseLayout):
     template = "mako:tw2.bootstrap.templates.horizontal_layout"
 
 
-class HorizontalForm(Bootstrap, twf.widgets.Form):
+class HorizontalForm(Bootstrap, twf.Form):
     """Equivalent to a Form containing a HorizontalLayout."""
     template = "mako:tw2.bootstrap.templates.horizontal_form"
     css_class = "form-horizontal"
@@ -153,3 +199,128 @@ class HorizontalForm(Bootstrap, twf.widgets.Form):
     submit = SubmitButton(id='submit', value='Save')
 
     legend = twc.Param('Legend text for the form.', '')
+
+
+class CalendarDatePicker(Bootstrap, twf.CalendarDatePicker):
+    pass
+
+
+class CalendarDateTimePicker(Bootstrap, twf.CalendarDateTimePicker):
+    pass
+
+
+class CheckBoxList(Bootstrap, twf.CheckBoxList):
+    pass
+
+
+class CheckBoxTable(Bootstrap, twf.CheckBoxTable):
+    pass
+
+
+class DataGrid(Bootstrap, twf.DataGrid):
+    pass
+
+
+class FieldSet(Bootstrap, twf.FieldSet):
+    pass
+
+
+class Form(Bootstrap, twf.Form):
+    pass
+
+
+class FormPage(Bootstrap, twf.FormPage):
+    pass
+
+
+class GridLayout(Bootstrap, twf.GridLayout):
+    pass
+
+
+class ImageButton(Bootstrap, twf.ImageButton):
+    pass
+
+
+class Label(Bootstrap, twf.Label):
+    pass
+
+
+class ListFieldSet(Bootstrap, twf.ListFieldSet):
+    pass
+
+
+class ListForm(Bootstrap, twf.ListForm):
+    pass
+
+
+class ListLayout(Bootstrap, twf.ListLayout):
+    pass
+
+
+class MultipleSelectField(Bootstrap, twf.MultipleSelectField):
+    pass
+
+
+class MultipleSelectionField(Bootstrap, twf.MultipleSelectionField):
+    pass
+
+
+class PostlabeledCheckBox(Bootstrap, twf.PostlabeledCheckBox):
+    pass
+
+
+class PostlabeledPartialRadioButton(Bootstrap,
+                                    twf.PostlabeledPartialRadioButton):
+    pass
+
+
+class RadioButtonList(Bootstrap, twf.RadioButtonList):
+    pass
+
+
+class RadioButtonTable(Bootstrap, twf.RadioButtonTable):
+    pass
+
+
+class RowLayout(Bootstrap, twf.RowLayout):
+    pass
+
+
+class SelectionField(Bootstrap, twf.SelectionField):
+    pass
+
+
+class SeparatedCheckBoxTable(Bootstrap, twf.SeparatedCheckBoxTable):
+    pass
+
+
+class SeparatedRadioButtonTable(Bootstrap, twf.SeparatedRadioButtonTable):
+    pass
+
+
+class SingleSelectField(Bootstrap, twf.SingleSelectField):
+    pass
+
+
+class Spacer(Bootstrap, twf.Spacer):
+    pass
+
+
+class TableFieldSet(Bootstrap, twf.TableFieldSet):
+    pass
+
+
+class TableForm(Bootstrap, twf.TableForm):
+    pass
+
+
+class TableLayout(Bootstrap, twf.TableLayout):
+    pass
+
+
+class VerticalCheckBoxTable(Bootstrap, twf.VerticalCheckBoxTable):
+    pass
+
+
+class VerticalRadioButtonTable(Bootstrap, twf.VerticalRadioButtonTable):
+    pass
