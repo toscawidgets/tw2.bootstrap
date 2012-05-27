@@ -118,7 +118,8 @@ class Bootstrap(twc.Widget):
 #
     def prepare(self):
         super(Bootstrap, self).prepare()
-        self.selector = "#" + self.attrs['id'].replace(':', '\\:')
+        if 'id' in self.attrs:
+            self.selector = "#" + self.attrs['id'].replace(':', '\\:')
 
 
 class InputField(Bootstrap, twf.InputField):
