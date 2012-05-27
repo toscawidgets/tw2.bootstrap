@@ -84,6 +84,12 @@ bootstrap_js = twc.JSLink(
     filename='static/bootstrap/js/bootstrap.js',
     resources=[twj.jquery_js])
 
+datepicker_css = twc.CSSLink(
+    filename='static/datepicker/css/datepicker.css',
+    resources=[bootstrap_css])
+datepicker_js = twc.JSLink(
+    filename='static/datepicker/js/datepicker.js',
+    resources=[bootstrap_js])
 
 class Bootstrap(twc.Widget):
     """ Abstract base class for tw2.bootstrap widgets. """
