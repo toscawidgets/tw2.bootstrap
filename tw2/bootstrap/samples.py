@@ -16,6 +16,8 @@ class DemoHorizontalForm(twb.HorizontalForm):
     legend = 'Hi, I\'m form!'
     title = twb.TextField(validator=twc.Required)
 
+    label = twb.LabelField(value="I am a LabelField")
+
     class link_to(twb.LinkField):
         label = "For more information"
         link = "http://twitter.github.com/bootstrap/base-css.html#forms"

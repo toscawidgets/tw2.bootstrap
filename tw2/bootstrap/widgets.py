@@ -153,12 +153,13 @@ class IgnoredField(twf.HiddenField):
 
 
 class LabelField(Bootstrap, twf.LabelField):
-    """ TODO -- not sure how to take this one on.
+    template = "tw2.bootstrap.templates.label_field"
+    css_class = "input-medium uneditable-input"
 
-    It doesn't seem to nicely fit the bootstrap paradigm.  Do you have
-    any ideas?
-    """
-    pass
+    def prepare(self):
+        super(LabelField, self).prepare()
+        self.safe_modify('attrs')
+        del self.attrs['class']
 
 
 class LinkField(Bootstrap, twf.LinkField):

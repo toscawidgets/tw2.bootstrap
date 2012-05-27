@@ -139,9 +139,14 @@ class TestIgnoredField(WidgetTest):
 
 
 class TestLabelField(WidgetTest):
-    # A twf label is not the same thing as a bootstrap label...
     widget = twb.LabelField
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = dict(id="bootstrap-test", value="foo")
+    expected = """
+    <span class="input-medium uneditable-input">foo<input
+       type="hidden" id="bootstrap-test"
+       value="foo" name="bootstrap-test"/>
+    </span>
+    """
 
 
 class TestButton(WidgetTest):
