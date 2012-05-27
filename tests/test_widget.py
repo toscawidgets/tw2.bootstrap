@@ -386,9 +386,11 @@ class TestTableLayout(WidgetTest):
 
 class TestVerticalCheckBoxTable(WidgetTest):
     widget = twb.VerticalCheckBoxTable
+    attrs = dict(id='bootstrap-test', options=['', 'Red', 'Blue'])
     expected = """<TODO>How should this actually work?</TODO>"""
 
 
 class TestVerticalRadioButtonTable(WidgetTest):
     widget = twb.VerticalRadioButtonTable
+    attrs = dict(id='bootstrap-test', options=['', 'Red', 'Blue'])
     expected = """<TODO>How should this actually work?</TODO>"""
