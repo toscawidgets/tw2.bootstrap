@@ -13,6 +13,7 @@ bootstrap_responsive_css = twc.CSSLink(
     filename='static/css/bootstrap-responsive.css')
 bootstrap_js = twc.JSLink(filename='static/js/bootstrap.js')
 
+
 class Bootstrap(twc.Widget):
     #template = "genshi:tw2.bootstrap.templates.bootstrap"
 
@@ -32,14 +33,18 @@ class Bootstrap(twc.Widget):
 #        super(Bootstrap, self).prepare()
 #        # put code here to run just before the widget is displayed
 
+
 class Button(Bootstrap, twf.Button):
     css_class = 'btn'
+
 
 class SubmitButton(Button, twf.SubmitButton):
     css_class = 'btn btn-primary'
 
+
 class ResetButton(Button, twf.ResetButton):
     pass
+
 
 class HorizontalLayout(Bootstrap, twf.widgets.BaseLayout):
     __doc__ = """
@@ -47,6 +52,7 @@ class HorizontalLayout(Bootstrap, twf.widgets.BaseLayout):
     Float left, right-aligned labels on same line as controls
     """ + twf.widgets.BaseLayout.__doc__
     template = "mako:tw2.bootstrap.templates.horizontal_layout"
+
 
 class HorizontalForm(Bootstrap, twf.widgets.Form):
     """Equivalent to a Form containing a HorizontalLayout."""
@@ -57,4 +63,3 @@ class HorizontalForm(Bootstrap, twf.widgets.Form):
     submit = SubmitButton(id='submit', value='Save')
 
     legend = twc.Param('Legend text for the form.', '')
-
