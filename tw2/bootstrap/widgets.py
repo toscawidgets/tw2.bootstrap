@@ -24,6 +24,8 @@ bootstrap_js = twc.JSLink(
 
 
 class Bootstrap(twc.Widget):
+    """ Abstract base class for tw2.bootstrap widgets. """
+
     #template = "genshi:tw2.bootstrap.templates.bootstrap"
 
     # declare static resources here
@@ -41,6 +43,18 @@ class Bootstrap(twc.Widget):
 #    def prepare(self):
 #        super(Bootstrap, self).prepare()
 #        # put code here to run just before the widget is displayed
+
+
+class InputField(Bootstrap, twf.InputField):
+    css_class = 'input-medium'
+
+
+class TextField(InputField, twf.TextField):
+    pass
+
+
+class TextArea(Bootstrap, twf.TextArea):
+    css_class = 'input-xlarge'
 
 
 class Button(Bootstrap, twf.Button):

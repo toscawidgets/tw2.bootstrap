@@ -27,9 +27,12 @@ def test_every_widget_exposed():
 def test_every_widget_covered():
     """ Is there a test for tw2.bootstrap widget's output? """
 
-    # Check that there is a test for every widget except the following
+    # Check that there is a test for every widget except the following.
+    # They are excluded for various reasons, mostly because they cannot be
+    # rendered on their own.
     excluded = [
         twb.Bootstrap,
+        twb.InputField,
     ]
 
     is_widget = lambda obj: isinstance(obj, twc.widgets.WidgetMeta)
@@ -55,6 +58,27 @@ class WidgetTest(_WidgetTest):
     # Universal initilization args. go here
     attrs = {'id': 'bootstrap-test'}
     params = {}
+
+
+class TestTextField(WidgetTest):
+    widget = twb.TextField
+    expected = """
+    <input name="bootstrap-test"
+           id="bootstrap-test"
+           class="input-medium"
+           type="text">
+    </input>
+    """
+
+
+class TestTextArea(WidgetTest):
+    widget = twb.TextArea
+    expected = """
+    <textarea name="bootstrap-test"
+              id="bootstrap-test"
+              class="input-xlarge">
+    </textarea>
+    """
 
 
 class TestButton(WidgetTest):
