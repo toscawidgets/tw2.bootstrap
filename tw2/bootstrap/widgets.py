@@ -1,6 +1,6 @@
 import tw2.core as twc
 import tw2.forms as twf
-#import tw2.jquery as twj
+import tw2.jquery as twj
 
 __all__ = [
     'bootstrap_css',
@@ -19,7 +19,8 @@ bootstrap_css = twc.CSSLink(
 bootstrap_responsive_css = twc.CSSLink(
     filename='static/css/bootstrap-responsive.css')
 bootstrap_js = twc.JSLink(
-    filename='static/js/bootstrap.js')
+    filename='static/js/bootstrap.js',
+    resources=[twj.jquery_js])
 
 
 class Bootstrap(twc.Widget):
@@ -28,7 +29,7 @@ class Bootstrap(twc.Widget):
     # declare static resources here
     # you can remove either or both of these, if not needed
     resources = [
-        #twj.jquery_js, bootstrap_js,
+        #bootstrap_js,
         bootstrap_css, bootstrap_responsive_css,
     ]
 
