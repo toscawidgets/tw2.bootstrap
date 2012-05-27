@@ -77,11 +77,11 @@ __all__ = [
 
 
 bootstrap_css = twc.CSSLink(
-    filename='static/css/bootstrap.css')
+    filename='static/bootstrap/css/bootstrap.css')
 bootstrap_responsive_css = twc.CSSLink(
-    filename='static/css/bootstrap-responsive.css')
+    filename='static/bootstrap/css/bootstrap-responsive.css')
 bootstrap_js = twc.JSLink(
-    filename='static/js/bootstrap.js',
+    filename='static/bootstrap/js/bootstrap.js',
     resources=[twj.jquery_js])
 
 
