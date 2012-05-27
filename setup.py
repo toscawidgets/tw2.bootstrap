@@ -17,6 +17,7 @@ setup(
     install_requires=[
         "tw2.core",
         "tw2.forms",
+        "tw2.jquery",
         ## Add other requirements here
         # "Genshi",
         ],
