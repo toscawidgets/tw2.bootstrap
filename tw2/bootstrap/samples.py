@@ -11,14 +11,14 @@ from tw2.forms.samples import DemoChildren
 from widgets import *
 
 
-class DemoBootstrapHorizontalForm(BootstrapHorizontalForm, DemoChildren):
+class DemoHorizontalForm(HorizontalForm, DemoChildren):
     legend = 'Hi, I\'m form!'
-    buttons = [BootstrapSubmitButton(), BootstrapResetButton()]
+    buttons = [SubmitButton(), ResetButton()]
 
 
-class DemoBootstrapButton(BootstrapButton):
+class DemoButton(Button):
     pass
 
 
-class DemoBootstrapSubmitButton(BootstrapSubmitButton):
+class DemoSubmitButton(SubmitButton):
     pass
