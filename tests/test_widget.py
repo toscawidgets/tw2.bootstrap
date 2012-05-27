@@ -37,6 +37,7 @@ def test_every_widget_covered():
 
         twb.Bootstrap,
         twb.InputField,
+        twb.LinkField,
     ]
 
     is_widget = lambda obj: isinstance(obj, twc.widgets.WidgetMeta)
@@ -140,11 +141,6 @@ class TestIgnoredField(WidgetTest):
 class TestLabelField(WidgetTest):
     # A twf label is not the same thing as a bootstrap label...
     widget = twb.LabelField
-    expected = """<TODO>How should this actually work?</TODO>"""
-
-
-class TestLinkField(WidgetTest):
-    widget = twb.LinkField
     expected = """<TODO>How should this actually work?</TODO>"""
 
 

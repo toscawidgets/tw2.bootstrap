@@ -15,6 +15,12 @@ import tw2.bootstrap.widgets as twb
 class DemoHorizontalForm(twb.HorizontalForm):
     legend = 'Hi, I\'m form!'
     title = twb.TextField(validator=twc.Required)
+
+    class link_to(twb.LinkField):
+        label = "For more information"
+        link = "http://twitter.github.com/bootstrap/base-css.html#forms"
+        text = "Twitter Bootstrap CSS Forms"
+
     # TODO -- uncomment this once we've got twb.SingleSelectField
     #priority = SingleSelectField(options=['', 'Normal', 'High'])
     space = twb.Spacer
@@ -42,3 +48,8 @@ class DemoButton(twb.Button):
 
 class DemoSubmitButton(twb.SubmitButton):
     pass
+
+class DemoLinkField(twb.LinkField):
+    link = "http://twitter.github.com/bootstrap/base-css.html#$"
+    text = "Twitter Bootstrap CSS $"
+    value = "forms"
