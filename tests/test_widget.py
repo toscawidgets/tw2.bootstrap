@@ -6,44 +6,6 @@ import tw2.forms as twf
 import tw2.bootstrap as twb
 
 
-class WidgetTest(_WidgetTest):
-    """ Only test against mako (we don't provide other templates). """
-    engines = ['mako']
-
-    # Universal initilization args. go here
-    attrs = {'id': 'bootstrap-test'}
-    params = {}
-
-
-class TestButton(WidgetTest):
-    widget = twb.Button
-    expected = """
-    <input  class="btn"
-            type="button"
-            id="bootstrap-test"
-            name="bootstrap-test" />
-    """
-
-
-class TestSubmitButton(WidgetTest):
-    widget = twb.SubmitButton
-    expected = """
-    <input  class="btn btn-primary"
-            type="submit"
-            id="bootstrap-test" />
-    """
-
-
-class TestResetButton(WidgetTest):
-    widget = twb.ResetButton
-    expected = """
-    <input  class="btn"
-            type="reset"
-            id="bootstrap-test"
-            name="bootstrap-test" />
-    """
-
-
 def test_every_widget_exposed():
     """ Is widget exposed by tw2.forms also in tw2.bootstrap? """
 
@@ -84,3 +46,99 @@ def test_every_widget_covered():
 
     for widget in twb_widgets:
         yield _is_widget_covered, widget
+
+
+class WidgetTest(_WidgetTest):
+    """ Only test against mako (we don't provide other templates). """
+    engines = ['mako']
+
+    # Universal initilization args. go here
+    attrs = {'id': 'bootstrap-test'}
+    params = {}
+
+
+class TestButton(WidgetTest):
+    widget = twb.Button
+    expected = """
+    <input  class="btn"
+            type="button"
+            id="bootstrap-test"
+            name="bootstrap-test" />
+    """
+
+
+class TestSubmitButton(WidgetTest):
+    widget = twb.SubmitButton
+    expected = """
+    <input  class="btn btn-primary"
+            type="submit"
+            id="bootstrap-test" />
+    """
+
+
+class TestResetButton(WidgetTest):
+    widget = twb.ResetButton
+    expected = """
+    <input  class="btn"
+            type="reset"
+            id="bootstrap-test"
+            name="bootstrap-test" />
+    """
+
+
+class TestHorizontalLayout(WidgetTest):
+    widget = twb.HorizontalLayout
+    attrs = {
+        'id': 'bootstrap-test',
+        'children': [
+            twb.ResetButton(id='foo'),
+        ],
+    }
+
+    expected = """
+    <div class="control-group ">
+      <label class="control-label" for="bootstrap-test:foo">Foo</label>
+      <div class="controls">
+        <input id="bootstrap-test:foo"
+               name="bootstrap-test:foo"
+               type="reset"
+               class="btn"/>
+      </div>
+    </div>
+    """
+
+
+class TestHorizontalForm(WidgetTest):
+    widget = twb.HorizontalForm
+    attrs = {
+        'id': 'bootstrap-test',
+        'children': [
+            twb.ResetButton(id='foo'),
+        ],
+    }
+
+    expected = """
+    <form id="bootstrap-test:form"
+          enctype="multipart/form-data"
+          method="post"
+          class="form-horizontal">
+         <span class="error"></span>
+
+      <fieldset>
+
+        <div class="control-group ">
+          <label class="control-label" for="bootstrap-test:foo">Foo</label>
+          <div class="controls">
+            <input type="reset" class="btn"
+                   id="bootstrap-test:foo"
+                   name="bootstrap-test:foo"/>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <input type="submit" class="btn btn-primary"
+                 value="Save" id="submit"/>
+        </div>
+      </fieldset>
+    </form>
+    """
