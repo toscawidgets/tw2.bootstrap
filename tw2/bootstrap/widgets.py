@@ -7,9 +7,11 @@ __all__ = ['bootstrap_css', 'bootstrap_responsive_css', 'bootstrap_js',
            'HorizontalLayout', 'HorizontalForm',
            ]
 
-bootstrap_css = twc.CSSLink(modname=__name__, filename='static/css/bootstrap.css')
-bootstrap_responsive_css = twc.CSSLink(modname=__name__, filename='static/css/bootstrap-responsive.css')
-bootstrap_js = twc.JSLink(modname=__name__, filename='static/js/bootstrap.js')
+
+bootstrap_css = twc.CSSLink(filename='static/css/bootstrap.css')
+bootstrap_responsive_css = twc.CSSLink(
+    filename='static/css/bootstrap-responsive.css')
+bootstrap_js = twc.JSLink(filename='static/js/bootstrap.js')
 
 class Bootstrap(twc.Widget):
     #template = "genshi:tw2.bootstrap.templates.bootstrap"
