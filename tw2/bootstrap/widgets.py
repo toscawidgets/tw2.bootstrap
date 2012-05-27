@@ -1,5 +1,5 @@
 """
-``tw2.bootstrap`` provides the same widgets as ``tw2.forms`` enabled to
+``tw2.bootstrap`` is a drop-in replacement for ``tw2.forms`` enabled to
 work with `twitter bootstrap <http://twitter.github.com/bootstrap/>`_.
 """
 

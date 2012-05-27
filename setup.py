@@ -10,7 +10,8 @@ except:
 setup(
     name='tw2.bootstrap',
     version='0.1',
-    description=open('README.md').read(),
+    description="A drop-in replacement for tw2.forms but with bootstrap!",
+    long_description=open('README.md').read(),
     author='Moritz Schlarb',
     author_email='mail@moritz-schlarb.de',
     url='',
