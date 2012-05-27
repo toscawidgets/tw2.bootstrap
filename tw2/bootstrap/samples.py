@@ -20,8 +20,8 @@ class DemoHorizontalForm(twb.HorizontalForm):
 
     class link_to(twb.LinkField):
         label = "For more information"
-        link = "http://twitter.github.com/bootstrap/base-css.html#forms"
-        text = "Twitter Bootstrap CSS Forms"
+        link = "http://twitter.github.com/bootstrap/base-css.html#$"
+        text = "Twitter Bootstrap CSS $"
 
     # TODO -- uncomment this once we've got twb.SingleSelectField
     #priority = SingleSelectField(options=['', 'Normal', 'High'])
@@ -39,7 +39,12 @@ class DemoHorizontalForm(twb.HorizontalForm):
             return super(DemoHorizontalForm, self).generate_output(displays_on)
 
         try:
-            DemoHorizontalForm.validate({})
+            DemoHorizontalForm.validate(dict(
+                #title="This is absent, and therefore fails."
+                link_to="forms",
+                label="I am a LabelField",
+                description="A description could go here...",
+            ))
         except twc.ValidationError, e:
             return e.widget.display()
 
