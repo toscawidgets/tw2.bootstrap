@@ -9,16 +9,16 @@ See http://toscawidgets.org/documentation/WidgetBrowser for more information
 import tw2.core as twc
 from tw2.forms.samples import DemoChildren
 
-from tw2.bootstrap.widgets import *
+import tw2.bootstrap.widgets as twb
 
 
-class DemoHorizontalForm(HorizontalForm):
+class DemoHorizontalForm(twb.HorizontalForm):
     legend = 'Hi, I\'m form!'
-    title = TextField(validator=twc.Required)
+    title = twb.TextField(validator=twc.Required)
     # TODO -- uncomment this once we've got twb.SingleSelectField
     #priority = SingleSelectField(options=['', 'Normal', 'High'])
-    description = TextArea
-    buttons = [SubmitButton, ResetButton]
+    description = twb.TextArea
+    buttons = [twb.SubmitButton, twb.ResetButton]
 
     def generate_output(self, displays_on):
         """ We override this method *only* to forcefully invalidate the widget
@@ -35,9 +35,9 @@ class DemoHorizontalForm(HorizontalForm):
             return e.widget.display()
 
 
-class DemoButton(Button):
+class DemoButton(twb.Button):
     pass
 
 
-class DemoSubmitButton(SubmitButton):
+class DemoSubmitButton(twb.SubmitButton):
     pass
