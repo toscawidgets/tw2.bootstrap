@@ -303,7 +303,7 @@ class SingleSelectField(Bootstrap, twf.SingleSelectField):
 
 
 class Spacer(Bootstrap, twf.Spacer):
-    pass
+    template = "tw2.bootstrap.templates.spacer"
 
 
 class TableFieldSet(Bootstrap, twf.TableFieldSet):

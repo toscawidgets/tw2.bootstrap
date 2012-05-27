@@ -17,6 +17,7 @@ class DemoHorizontalForm(twb.HorizontalForm):
     title = twb.TextField(validator=twc.Required)
     # TODO -- uncomment this once we've got twb.SingleSelectField
     #priority = SingleSelectField(options=['', 'Normal', 'High'])
+    space = twb.Spacer
     description = twb.TextArea
     buttons = [twb.SubmitButton, twb.ResetButton]
 

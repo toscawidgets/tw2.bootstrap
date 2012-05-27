@@ -362,7 +362,7 @@ class TestSingleSelectField(WidgetTest):
 
 class TestSpacer(WidgetTest):
     widget = twb.Spacer
-    expected = """<TODO>How should this actually work?</TODO>"""
+    expected = """<hr name="bootstrap-test" id="bootstrap-test"></hr>"""
 
 
 class TestTableForm(WidgetTest):
