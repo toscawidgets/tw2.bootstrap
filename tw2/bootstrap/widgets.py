@@ -2,16 +2,24 @@ import tw2.core as twc
 import tw2.forms as twf
 #import tw2.jquery as twj
 
-__all__ = ['bootstrap_css', 'bootstrap_responsive_css', 'bootstrap_js',
-           'Button', 'SubmitButton', 'ResetButton',
-           'HorizontalLayout', 'HorizontalForm',
-           ]
+__all__ = [
+    'bootstrap_css',
+    'bootstrap_responsive_css',
+    'bootstrap_js',
+    'Button',
+    'SubmitButton',
+    'ResetButton',
+    'HorizontalLayout',
+    'HorizontalForm',
+]
 
 
-bootstrap_css = twc.CSSLink(filename='static/css/bootstrap.css')
+bootstrap_css = twc.CSSLink(
+    filename='static/css/bootstrap.css')
 bootstrap_responsive_css = twc.CSSLink(
     filename='static/css/bootstrap-responsive.css')
-bootstrap_js = twc.JSLink(filename='static/js/bootstrap.js')
+bootstrap_js = twc.JSLink(
+    filename='static/js/bootstrap.js')
 
 
 class Bootstrap(twc.Widget):
