@@ -72,3 +72,40 @@ class DemoCalendarTimePicker(twb.CalendarTimePicker):
     defaultTime = None
     value = "14:00"
 
+
+class DemoVerticalCheckBoxTable(twb.VerticalCheckBoxTable):
+    options = [
+        ('group1', [
+            (1, 'Red'),
+            (2, 'Blue'),
+            (3, 'Magenta'),
+        ]),
+        ('group2',
+         [
+             'Pink',
+             'Yellow',
+             'Green',
+             'Purple',
+             'Cyan',
+             'Teal',
+         ])
+    ]
+
+
+class DemoVerticalRadioButtonTable(twb.VerticalRadioButtonTable):
+    options = [
+        ('group1', [
+            (1, 'Red'),
+            (2, 'Blue'),
+            (3, 'Magenta'),
+        ]),
+        ('group2',
+         [
+             'Pink',
+             'Yellow',
+             'Green',
+             'Purple',
+             'Cyan',
+             'Teal',
+         ])
+    ]

@@ -387,10 +387,54 @@ class TestTableLayout(WidgetTest):
 class TestVerticalCheckBoxTable(WidgetTest):
     widget = twb.VerticalCheckBoxTable
     attrs = dict(id='bootstrap-test', options=['', 'Red', 'Blue'])
-    expected = """<TODO>How should this actually work?</TODO>"""
+    expected = """
+    <table class="table table-condensed"
+           name="bootstrap-test"
+           id="bootstrap-test">
+        <tbody>
+        <tr><td/></tr>
+        <tr>
+            <td>
+              <label class="checkbox" for="bootstrap-test:1">
+                <input type="checkbox" name="bootstrap-test"
+                       value="Red" id="bootstrap-test:1" />Red</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <label class="checkbox" for="bootstrap-test:2">
+                <input type="checkbox" name="bootstrap-test"
+                       value="Blue" id="bootstrap-test:2" />Blue</label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    """
 
 
 class TestVerticalRadioButtonTable(WidgetTest):
     widget = twb.VerticalRadioButtonTable
     attrs = dict(id='bootstrap-test', options=['', 'Red', 'Blue'])
-    expected = """<TODO>How should this actually work?</TODO>"""
+    expected = """
+    <table class="table table-condensed"
+           name="bootstrap-test"
+           id="bootstrap-test">
+        <tbody>
+        <tr><td/></tr>
+        <tr>
+            <td>
+              <label class="radio" for="bootstrap-test:1">
+                <input type="radio" name="bootstrap-test"
+                       value="Red" id="bootstrap-test:1" />Red</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <label class="radio" for="bootstrap-test:2">
+                <input type="radio" name="bootstrap-test"
+                       value="Blue" id="bootstrap-test:2" />Blue</label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    """

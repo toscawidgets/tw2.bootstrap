@@ -443,9 +443,12 @@ class TableLayout(Bootstrap, twf.TableLayout):
     pass
 
 
-class VerticalCheckBoxTable(Bootstrap, twf.VerticalCheckBoxTable):
-    pass
+
+class VerticalCheckBoxTable(SelectionField, twf.VerticalCheckBoxTable):
+    template = "tw2.bootstrap.templates.vertical_selection_table"
+    css_class = "table table-condensed"
 
 
-class VerticalRadioButtonTable(Bootstrap, twf.VerticalRadioButtonTable):
-    pass
+class VerticalRadioButtonTable(SelectionField, twf.VerticalRadioButtonTable):
+    template = "tw2.bootstrap.templates.vertical_selection_table"
+    css_class = "table table-condensed"
