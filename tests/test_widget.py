@@ -81,6 +81,69 @@ class TestTextArea(WidgetTest):
     """
 
 
+class TestCheckBox(WidgetTest):
+    widget = twb.CheckBox
+    expected = """
+    <label class="checkbox">
+        <input name="bootstrap-test" type="checkbox"
+               id="bootstrap-test"/>
+    </label>
+    """
+
+
+class TestRadioButton(WidgetTest):
+    widget = twb.RadioButton
+    expected = """
+    <label class="radio">
+        <input name="bootstrap-test" type="radio"
+               id="bootstrap-test"/>
+    </label>
+    """
+
+
+class TestPasswordField(WidgetTest):
+    widget = twb.PasswordField
+    expected = """
+    <input name="bootstrap-test" type="password"
+           class="input-medium" id="bootstrap-test"/>
+    """
+
+
+class TestFileField(WidgetTest):
+    widget = twb.FileField
+    expected = """
+    <input name="bootstrap-test"
+           type="file"
+           class="input-file"
+           id="bootstrap-test"/>
+   """
+
+
+class TestHiddenField(WidgetTest):
+    widget = twb.HiddenField
+    expected = """
+    <input type="hidden" name="bootstrap-test" id="bootstrap-test"/>
+    """
+
+
+class TestIgnoredField(WidgetTest):
+    widget = twb.IgnoredField
+    expected = """
+    <input type="hidden" name="bootstrap-test" id="bootstrap-test"/>
+    """
+
+
+class TestLabelField(WidgetTest):
+    # A twf label is not the same thing as a bootstrap label...
+    widget = twb.LabelField
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
+class TestLinkField(WidgetTest):
+    widget = twb.LinkField
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
 class TestButton(WidgetTest):
     widget = twb.Button
     expected = """

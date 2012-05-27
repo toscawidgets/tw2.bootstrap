@@ -1,3 +1,8 @@
+"""
+``tw2.bootstrap`` provides the same widgets as ``tw2.forms`` enabled to
+work with `twitter bootstrap <http://twitter.github.com/bootstrap/>`_.
+"""
+
 import tw2.core as twc
 import tw2.forms as twf
 import tw2.jquery as twj
@@ -6,6 +11,17 @@ __all__ = [
     'bootstrap_css',
     'bootstrap_responsive_css',
     'bootstrap_js',
+    'InputField',
+    'TextField',
+    'TextArea',
+    'CheckBox',
+    'RadioButton',
+    'PasswordField',
+    'FileField',
+    'HiddenField',
+    'IgnoredField',
+    'LabelField',
+    'LinkField',
     'Button',
     'SubmitButton',
     'ResetButton',
@@ -55,6 +71,57 @@ class TextField(InputField, twf.TextField):
 
 class TextArea(Bootstrap, twf.TextArea):
     css_class = 'input-xlarge'
+
+
+class _BoolControl(Bootstrap):
+    template = "tw2.bootstrap.templates.bool_control"
+
+    def prepare(self):
+        super(_BoolControl, self).prepare()
+        self.safe_modify('attrs')
+        del self.attrs['class']
+
+
+class CheckBox(_BoolControl, twf.CheckBox):
+    css_class = "checkbox"
+
+
+class RadioButton(_BoolControl, twf.RadioButton):
+    css_class = "radio"
+
+
+class PasswordField(InputField, twf.PasswordField):
+    pass
+
+
+class FileField(Bootstrap, twf.FileField):
+    css_class = "input-file"
+
+
+class HiddenField(twf.HiddenField):
+    pass
+
+
+class IgnoredField(twf.HiddenField):
+    pass
+
+
+class LabelField(Bootstrap, twf.LabelField):
+    """ TODO -- not sure how to take this one on.
+
+    It doesn't seem to nicely fit the bootstrap paradigm.  Do you have
+    any ideas?
+    """
+    pass
+
+
+class LinkField(Bootstrap, twf.LinkField):
+    """ TODO -- not sure how to take this one on.
+
+    It doesn't seem to nicely fit the bootstrap paradigm.  Do you have
+    any ideas?
+    """
+    pass
 
 
 class Button(Bootstrap, twf.Button):
