@@ -76,20 +76,26 @@ __all__ = [
 ]
 
 
+bootstrap_img = twc.DirLink(
+    filename='static/bootstrap/img')
 bootstrap_css = twc.CSSLink(
-    filename='static/bootstrap/css/bootstrap.css')
+    filename='static/bootstrap/css/bootstrap.css',
+    resources=[bootstrap_img])
 bootstrap_responsive_css = twc.CSSLink(
     filename='static/bootstrap/css/bootstrap-responsive.css')
 bootstrap_js = twc.JSLink(
     filename='static/bootstrap/js/bootstrap.js',
     resources=[twj.jquery_js])
 
+datepicker_img = twc.DirLink(
+    filename='static/datepicker/img')
 datepicker_css = twc.CSSLink(
     filename='static/datepicker/css/datepicker.css',
-    resources=[bootstrap_css])
+    resources=[bootstrap_css, datepicker_img])
 datepicker_js = twc.JSLink(
-    filename='static/datepicker/js/datepicker.js',
+    filename='static/datepicker/js/bootstrap-datepicker.js',
     resources=[bootstrap_js])
+
 
 class Bootstrap(twc.Widget):
     """ Abstract base class for tw2.bootstrap widgets. """
@@ -103,14 +109,16 @@ class Bootstrap(twc.Widget):
         bootstrap_css, bootstrap_responsive_css,
     ]
 
+    selector = twc.Variable("Escaped id.  jQuery selector.")
+
 #    @classmethod
 #    def post_define(cls):
 #        pass
 #        # put custom initialisation code here
 #
-#    def prepare(self):
-#        super(Bootstrap, self).prepare()
-#        # put code here to run just before the widget is displayed
+    def prepare(self):
+        super(Bootstrap, self).prepare()
+        self.selector = "#" + self.attrs['id'].replace(':', '\\:')
 
 
 class InputField(Bootstrap, twf.InputField):
@@ -208,12 +216,29 @@ class HorizontalForm(Bootstrap, twf.Form):
     legend = twc.Param('Legend text for the form.', '')
 
 
-class CalendarDatePicker(Bootstrap, twf.CalendarDatePicker):
-    pass
+class CalendarDatePicker(TextField):
+    resources = TextField.resources + [datepicker_js, datepicker_css]
+
+    format = twc.Param(
+        "the date format, combination of d, dd, m, mm, yy, yyyy.",
+        default="mm/dd/yyyy")
+    weekStart = twc.Param(
+        "day of the week start.  0 for Sunday - 6 for Saturday",
+        default=0)
+
+    def prepare(self):
+        super(CalendarDatePicker, self).prepare()
+        self.add_call(twj.jQuery(self.selector).datepicker(dict(
+            format=self.format,
+            weekStart=self.weekStart,
+        )))
 
 
 class CalendarDateTimePicker(Bootstrap, twf.CalendarDateTimePicker):
-    pass
+    """ Not implemented.  If you want to contribute it, let us know. """
+
+    def prepare(self):
+        raise NotImplementedError("If you want this, let us know.")
 
 
 class CheckBoxList(Bootstrap, twf.CheckBoxList):

@@ -238,7 +238,10 @@ class TestHorizontalForm(WidgetTest):
 
 class TestCalendarDatePicker(WidgetTest):
     widget = twb.CalendarDatePicker
-    expected = """<TODO>How should this actually work?</TODO>"""
+    expected = """
+    <input name="bootstrap-test" type="text" id="bootstrap-test"
+           class="input-medium"/>
+    """
 
 
 class TestCalendarDateTimePicker(WidgetTest):
