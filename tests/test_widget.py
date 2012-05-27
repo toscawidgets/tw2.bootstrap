@@ -34,7 +34,7 @@ class WidgetTest(_WidgetTest):
 
 
 class TestButton(WidgetTest):
-    widget = twb.BootstrapButton
+    widget = twb.Button
     expected = """
     <input  class="btn"
             type="button"
@@ -44,7 +44,7 @@ class TestButton(WidgetTest):
 
 
 class TestSubmitButton(WidgetTest):
-    widget = twb.BootstrapSubmitButton
+    widget = twb.SubmitButton
     expected = """
     <input  class="btn btn-primary"
             type="submit"
@@ -53,7 +53,7 @@ class TestSubmitButton(WidgetTest):
 
 
 class TestResetButton(WidgetTest):
-    widget = twb.BootstrapResetButton
+    widget = twb.ResetButton
     expected = """
     <input  class="btn"
             type="reset"
