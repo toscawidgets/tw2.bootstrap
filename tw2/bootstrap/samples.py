@@ -67,3 +67,8 @@ class DemoCalendarDatePicker(twb.CalendarDatePicker):
     style = 'component'
 
 
+class DemoCalendarTimePicker(twb.CalendarTimePicker):
+    style = 'dropdown'
+    defaultTime = None
+    value = "14:00"
+

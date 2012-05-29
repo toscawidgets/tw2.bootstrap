@@ -35,6 +35,7 @@ __all__ = [
     'HorizontalForm',
 
     'CalendarDatePicker',
+    'CalendarTimePicker',
     'CalendarDateTimePicker',
     'CheckBoxList',
     'CheckBoxTable',
@@ -97,6 +98,13 @@ datepicker_css = twc.CSSLink(
     resources=[bootstrap_css, datepicker_img])
 datepicker_js = twc.JSLink(
     filename='static/datepicker/js/bootstrap-datepicker.js',
+    resources=[bootstrap_js])
+
+timepicker_css = twc.CSSLink(
+    filename='static/timepicker/css/timepicker.css',
+    resources=[bootstrap_css])
+timepicker_js = twc.JSLink(
+    filename='static/timepicker/js/bootstrap-timepicker.js',
     resources=[bootstrap_js])
 
 
@@ -275,11 +283,55 @@ class CalendarDatePicker(TextField):
             pass
 
 
-class CalendarDateTimePicker(Bootstrap, twf.CalendarDateTimePicker):
-    """ Not implemented.  If you want to contribute it, let us know. """
+class CalendarTimePicker(TextField):
+    resources = TextField.resources + [timepicker_js, timepicker_css]
+
+    style = twc.Param(
+        'Specify the template to use. [modal, dropdown]',
+        default='modal')
+    minuteStep = twc.Param(
+        'Specify a step for the minute field.',
+        default=15)
+    defaultTime = twc.Param(
+        'Set the initial time value. '
+        'Setting it to "current" sets it to the current time.',
+        default='current')
+    disableFocus = twc.Param(
+        'Disables the input from focusing. This is useful for touch screen '
+        'devices that display a keyboard on input focus.',
+        default=False)
 
     def prepare(self):
-        raise NotImplementedError("If you want this, let us know.")
+        super(CalendarTimePicker, self).prepare()
+        self.add_call(twj.jQuery(self.selector).timepicker(dict(
+            template=self.style,
+            minuteStep=self.minuteStep,
+            defaultTime=self.defaultTime,
+            disableFocus=self.disableFocus
+        )))
+
+
+class CalendarDateTimePicker(Bootstrap, twc.CompoundWidget):
+    date = CalendarDatePicker()
+    time = CalendarTimePicker()
+
+    def _validate(self, value, state=None):
+        """
+        Inner validation method; this is called by validate and should not be
+        called directly. Overriding this method in widgets is discouraged; a
+        custom validator should be coded instead. However, in some
+        circumstances overriding is necessary.
+        """
+        self._validated = True
+        result = ''
+        for field in self.children:
+            child_value = field.validator.to_python(field.value)
+            field.validator.validate_python(child_value, state)
+            result += child_value
+        return result
+
+    def prepare(self):
+        super(CalendarDateTimePicker, self).prepare()
 
 
 class CheckBoxList(Bootstrap, twf.CheckBoxList):
