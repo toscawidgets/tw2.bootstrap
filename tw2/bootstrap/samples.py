@@ -69,8 +69,7 @@ class DemoCalendarDatePicker(twb.CalendarDatePicker):
 
 class DemoCalendarTimePicker(twb.CalendarTimePicker):
     style = 'dropdown'
-    defaultTime = None
-    value = "14:00"
+    defaultTime = "9:00 AM"
 
 
 class DemoVerticalCheckBoxTable(twb.VerticalCheckBoxTable):
