@@ -244,6 +244,11 @@ class TestCalendarDatePicker(WidgetTest):
     """
 
 
+class TestCalendarTimePicker(WidgetTest):
+    widget = twb.CalendarTimePicker
+    expected = """<TODO>How should this actually work?</TODO>"""
+
+
 class TestCalendarDateTimePicker(WidgetTest):
     widget = twb.CalendarDateTimePicker
     expected = """<TODO>How should this actually work?</TODO>"""
