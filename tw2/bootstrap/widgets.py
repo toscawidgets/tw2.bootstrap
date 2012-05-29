@@ -7,6 +7,9 @@ import tw2.core as twc
 import tw2.forms as twf
 import tw2.jquery as twj
 
+from datetime import datetime
+from tw2.bootstrap.utils import replace_all
+
 __all__ = [
     'bootstrap_css',
     'bootstrap_responsive_css',
@@ -219,13 +222,41 @@ class HorizontalForm(Bootstrap, twf.Form):
 
 class CalendarDatePicker(TextField):
     resources = TextField.resources + [datepicker_js, datepicker_css]
+    template = "mako:tw2.bootstrap.templates.datepicker"
 
+    style = twc.Param(
+        'Specify the template to use. [field, component]',
+        default='field')
     format = twc.Param(
         "the date format, combination of d, dd, m, mm, yy, yyyy.",
         default="mm/dd/yyyy")
+    date_format = twc.Variable()
     weekStart = twc.Param(
         "day of the week start.  0 for Sunday - 6 for Saturday",
         default=0)
+    default = twc.Param(
+        'Default value (datetime) for the widget.  If set to a function, ' +
+        'it will be called each time before displaying.',
+        default=datetime.now)
+
+    def __init__(self, *args, **kw):
+        super(CalendarDatePicker, self).__init__(*args, **kw)
+        # Convert the bootstrap-datepicker format string to
+        # a python format string...
+        self.date_format = replace_all(self.format, [
+            ('dd', 'DAY'), ('d', 'DAY'),
+            ('mm', 'MONTH'), ('m', 'MONTH'),
+            ('yyyy', '4YEAR'), ('yy', '2YEAR')
+            ])
+        self.date_format = replace_all(self.date_format, [
+            ('DAY', '%d'),
+            ('MONTH', '%m'),
+            ('2YEAR', '%y'), ('4YEAR', '%Y')
+            ])
+        if not self.validator:
+            self.validator = twc.DateValidator(
+            format=self.date_format,
+            )
 
     def prepare(self):
         super(CalendarDatePicker, self).prepare()
@@ -233,6 +264,15 @@ class CalendarDatePicker(TextField):
             format=self.format,
             weekStart=self.weekStart,
         )))
+        if not self.value:
+            if callable(self.default):
+                self.value = self.default()
+            else:
+                self.value = self.default
+        try:
+            self.value = self.value.strftime(self.date_format)
+        except:
+            pass
 
 
 class CalendarDateTimePicker(Bootstrap, twf.CalendarDateTimePicker):

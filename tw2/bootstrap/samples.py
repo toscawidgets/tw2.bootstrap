@@ -56,7 +56,14 @@ class DemoButton(twb.Button):
 class DemoSubmitButton(twb.SubmitButton):
     pass
 
+
 class DemoLinkField(twb.LinkField):
     link = "http://twitter.github.com/bootstrap/base-css.html#$"
     text = "Twitter Bootstrap CSS $"
     value = "forms"
+
+
+class DemoCalendarDatePicker(twb.CalendarDatePicker):
+    style = 'component'
+
+
