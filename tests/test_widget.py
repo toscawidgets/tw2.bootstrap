@@ -240,18 +240,31 @@ class TestCalendarDatePicker(WidgetTest):
     widget = twb.CalendarDatePicker
     expected = """
     <input name="bootstrap-test" type="text" id="bootstrap-test"
-           class="input-medium"/>
+           class="input-medium" value="05/29/2012" data-date="05/29/2012"
+           data-date-format="mm/dd/yyyy" />
     """
 
 
 class TestCalendarTimePicker(WidgetTest):
     widget = twb.CalendarTimePicker
-    expected = """<TODO>How should this actually work?</TODO>"""
+    expected = """
+    <input name="bootstrap-test" type="text" id="bootstrap-test"
+           class="input-medium"/>
+    """
 
 
 class TestCalendarDateTimePicker(WidgetTest):
     widget = twb.CalendarDateTimePicker
-    expected = """<TODO>How should this actually work?</TODO>"""
+    expected = """
+    <div id="bootstrap-test">
+       <input name="bootstrap-test:date" type="text" id="bootstrap-test:date"
+              class="input-medium" value="05/29/2012" data-date="05/29/2012"
+              data-date-format="mm/dd/yyyy" />
+       <input name="bootstrap-test:time" type="text"
+              id="bootstrap-test:time" class="input-medium"/>
+    </div>
+    """
+
 
 
 class TestCheckBoxList(WidgetTest):
