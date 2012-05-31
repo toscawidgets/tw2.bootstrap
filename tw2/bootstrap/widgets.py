@@ -81,29 +81,38 @@ __all__ = [
 
 
 bootstrap_img = twc.DirLink(
+    modname=__name__,
     filename='static/bootstrap/img')
 bootstrap_css = twc.CSSLink(
+    modname=__name__,
     filename='static/bootstrap/css/bootstrap.css',
     resources=[bootstrap_img])
 bootstrap_responsive_css = twc.CSSLink(
+    modname=__name__,
     filename='static/bootstrap/css/bootstrap-responsive.css')
 bootstrap_js = twc.JSLink(
+    modname=__name__,
     filename='static/bootstrap/js/bootstrap.js',
     resources=[twj.jquery_js])
 
 datepicker_img = twc.DirLink(
+    modname=__name__,
     filename='static/datepicker/img')
 datepicker_css = twc.CSSLink(
+    modname=__name__,
     filename='static/datepicker/css/datepicker.css',
     resources=[bootstrap_css, datepicker_img])
 datepicker_js = twc.JSLink(
+    modname=__name__,
     filename='static/datepicker/js/bootstrap-datepicker.js',
     resources=[bootstrap_js])
 
 timepicker_css = twc.CSSLink(
+    modname=__name__,
     filename='static/timepicker/css/timepicker.css',
     resources=[bootstrap_css])
 timepicker_js = twc.JSLink(
+    modname=__name__,
     filename='static/timepicker/js/bootstrap-timepicker.js',
     resources=[bootstrap_js])
 
