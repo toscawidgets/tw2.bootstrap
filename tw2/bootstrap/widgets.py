@@ -93,7 +93,8 @@ bootstrap_responsive_css = twc.CSSLink(
 bootstrap_js = twc.JSLink(
     modname=__name__,
     filename='static/bootstrap/js/bootstrap.js',
-    resources=[twj.jquery_js])
+    resources=[twj.jquery_js],
+    location='headbottom')
 
 datepicker_img = twc.DirLink(
     modname=__name__,
@@ -105,7 +106,8 @@ datepicker_css = twc.CSSLink(
 datepicker_js = twc.JSLink(
     modname=__name__,
     filename='static/datepicker/js/bootstrap-datepicker.js',
-    resources=[bootstrap_js])
+    resources=[bootstrap_js],
+    location='headbottom')
 
 timepicker_css = twc.CSSLink(
     modname=__name__,
@@ -114,7 +116,8 @@ timepicker_css = twc.CSSLink(
 timepicker_js = twc.JSLink(
     modname=__name__,
     filename='static/timepicker/js/bootstrap-timepicker.js',
-    resources=[bootstrap_js])
+    resources=[bootstrap_js],
+    location='headbottom')
 
 
 class Bootstrap(twc.Widget):
@@ -321,6 +324,7 @@ class CalendarTimePicker(TextField):
 
 
 class CalendarDateTimePicker(Bootstrap, twc.CompoundWidget):
+    resources = set(CalendarDatePicker.resources + CalendarTimePicker.resources)
     date = CalendarDatePicker()
     time = CalendarTimePicker()
 
