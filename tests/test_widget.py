@@ -5,6 +5,8 @@ import tw2.core as twc
 import tw2.forms as twf
 import tw2.bootstrap as twb
 
+import datetime
+
 
 def test_every_widget_exposed():
     """ Is widget exposed by tw2.forms also in tw2.bootstrap? """
@@ -240,9 +242,9 @@ class TestCalendarDatePicker(WidgetTest):
     widget = twb.CalendarDatePicker
     expected = """
     <input name="bootstrap-test" type="text" id="bootstrap-test"
-           class="input-medium" value="05/29/2012" data-date="05/29/2012"
+           class="input-medium" value="{today}" data-date="{today}"
            data-date-format="mm/dd/yyyy" />
-    """
+    """.format(today=datetime.datetime.now().strftime("%m/%d/%Y"))
 
 
 class TestCalendarTimePicker(WidgetTest):
@@ -258,12 +260,12 @@ class TestCalendarDateTimePicker(WidgetTest):
     expected = """
     <div id="bootstrap-test">
        <input name="bootstrap-test:date" type="text" id="bootstrap-test:date"
-              class="input-medium" value="05/29/2012" data-date="05/29/2012"
+              class="input-medium" value="{today}" data-date="{today}"
               data-date-format="mm/dd/yyyy" />
        <input name="bootstrap-test:time" type="text"
               id="bootstrap-test:time" class="input-medium"/>
     </div>
-    """
+    """.format(today=datetime.datetime.now().strftime("%m/%d/%Y"))
 
 
 
