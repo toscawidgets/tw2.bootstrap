@@ -417,7 +417,7 @@ class RadioButtonList(Bootstrap, twf.RadioButtonList):
 
 
 class RadioButtonTable(Bootstrap, twf.RadioButtonTable):
-    pass
+    template = "tw2.bootstrap.templates.selection_table"
 
 
 class RowLayout(Bootstrap, twf.RowLayout):

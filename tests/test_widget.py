@@ -363,8 +363,33 @@ class TestRadioButtonList(WidgetTest):
 
 class TestRadioButtonTable(WidgetTest):
     widget = twb.RadioButtonTable
-    expected = """<TODO>How should this actually work?</TODO>"""
-
+    attrs = {
+        'options': (('a','1'), ('b', '2'), ('c', '3')),
+        'id': 'something',
+    }
+    expected = """<table id="something">
+    <tbody>
+    <tr>
+        <td>
+            <label for="something:0" class="radio">
+            <input type="radio" name="something" value="a" id="something:0">
+            1</label>
+        </td>
+    </tr><tr>
+        <td>
+            <label for="something:1" class="radio">
+            <input type="radio" name="something" value="b" id="something:1">
+            2</label>
+        </td>
+    </tr><tr>
+        <td>
+            <label for="something:2" class="radio">
+            <input type="radio" name="something" value="c" id="something:2">
+            3</label>
+        </td>
+    </tr>
+    </tbody>
+</table>"""
 
 class TestRowLayout(WidgetTest):
     widget = twb.RowLayout
