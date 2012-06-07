@@ -368,7 +368,22 @@ class TestRadioButtonTable(WidgetTest):
 
 class TestRowLayout(WidgetTest):
     widget = twb.RowLayout
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'children': [twb.TextField(id='field1'),
+                          twb.TextField(id='field2'),
+                          twb.TextField(id='field3')],
+             'repetition': 1,
+             }
+    expected = """<tr class="even">
+    <td>
+        <input name="field1" id="field1" type="text" class="input-medium">
+    </td><td>
+        <input name="field2" id="field2" type="text" class="input-medium">
+    </td><td>
+        <input name="field3" id="field3" type="text" class="input-medium">
+    </td>
+    <td>
+    </td>
+    </tr>"""
 
 
 class TestSingleSelectField(WidgetTest):
