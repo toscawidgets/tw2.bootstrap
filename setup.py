@@ -8,7 +8,7 @@ except:
     pass
 
 setup(
-    name='tw2.bootstrap',
+    name='tw2.bootstrap.forms',
     version='0.1',
     description="A drop-in replacement for tw2.forms but with bootstrap!",
     long_description=open('README.md').read(),
@@ -49,7 +49,7 @@ setup(
     entry_points="""
         [tw2.widgets]
         # Register your widgets so they can be listed in the WidgetBrowser
-        widgets = tw2.bootstrap
+        widgets = tw2.bootstrap.forms
     """,
     keywords = [
         'toscawidgets.widgets',
