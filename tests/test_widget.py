@@ -50,6 +50,10 @@ def test_every_widget_covered():
         twb.SeparatedCheckBoxTable,
         twb.PostlabeledCheckBox,
         twb.PostlabeledPartialRadioButton,
+
+        # This one is an abandoned child...
+        # Not to be confused with MultipleSelectField.
+        twb.MultipleSelectionField
     ]
 
     is_widget = lambda obj: isinstance(obj, twc.widgets.WidgetMeta)
@@ -340,12 +344,18 @@ class TestListLayout(WidgetTest):
 
 class TestMultipleSelectField(WidgetTest):
     widget = twb.MultipleSelectField
-    expected = """<TODO>How should this actually work?</TODO>"""
-
-
-class TestMultipleSelectionField(WidgetTest):
-    widget = twb.MultipleSelectionField
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {
+        'css_class': 'something',
+        'options': (('a', '1'), ('b', '2'), ('c', '3')),
+        'id': "hid",
+    }
+    expected = """
+    <select class="something" multiple="multiple" id="hid" name="hid">
+                      <option value="a">1</option>
+                      <option value="b">2</option>
+                      <option value="c">3</option>
+                  </select>"""
+    validate_params = [[None, {'hid':'b'}, [u'b']]]
 
 
 class TestRadioButtonList(WidgetTest):
