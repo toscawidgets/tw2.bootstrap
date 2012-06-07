@@ -413,7 +413,7 @@ class PostlabeledPartialRadioButton(Bootstrap,
 
 
 class RadioButtonList(Bootstrap, twf.RadioButtonList):
-    pass
+    template = "tw2.bootstrap.templates.selection_list"
 
 
 class RadioButtonTable(Bootstrap, twf.RadioButtonTable):

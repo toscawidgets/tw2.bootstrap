@@ -358,7 +358,25 @@ class TestPostlabeledPartialRadioButton(WidgetTest):
 
 class TestRadioButtonList(WidgetTest):
     widget = twb.RadioButtonList
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {
+        'options':(('a','1'), ('b', '2'), ('c', '3')),
+        'id':'something',
+    }
+    expected = """<ul id="something">
+    <li>
+        <label for="something:0" class="radio">
+        <input type="radio" name="something" value="a" id="something:0">
+        1</label>
+    </li><li>
+        <label for="something:1" class="radio">
+        <input type="radio" name="something" value="b" id="something:1">
+        2</label>
+    </li><li>
+        <label for="something:2" class="radio">
+        <input type="radio" name="something" value="c" id="something:2">
+        3</label>
+    </li>
+</ul>"""
 
 
 class TestRadioButtonTable(WidgetTest):
