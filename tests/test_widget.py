@@ -268,7 +268,6 @@ class TestCalendarDateTimePicker(WidgetTest):
     """.format(today=datetime.datetime.now().strftime("%m/%d/%Y"))
 
 
-
 class TestCheckBoxList(WidgetTest):
     widget = twb.CheckBoxList
     expected = """<TODO>How should this actually work?</TODO>"""
@@ -391,17 +390,104 @@ class TestSpacer(WidgetTest):
 
 class TestTableForm(WidgetTest):
     widget = twb.TableForm
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'field1': twb.TextField(id='field1'),
+             'field2': twb.TextField(id='field2'),
+             'field3': twb.TextField(id='field3'),
+             }
+    expected = """<form method="post" enctype="multipart/form-data">
+     <span class="error"></span>
+    <table>
+    <tr class="odd" id="field1:container">
+        <th>Field1</th>
+        <td>
+            <input name="field1" id="field1" type="text" class="input-medium">
+            <span id="field1:error"></span>
+        </td>
+    </tr><tr class="even" id="field2:container">
+        <th>Field2</th>
+        <td>
+            <input name="field2" id="field2" type="text" class="input-medium">
+            <span id="field2:error"></span>
+        </td>
+    </tr><tr class="odd" id="field3:container">
+        <th>Field3</th>
+        <td>
+            <input name="field3" id="field3" type="text" class="input-medium">
+            <span id="field3:error"></span>
+        </td>
+    </tr>
+    <tr class="error"><td colspan="2">
+        <span id=":error"></span>
+    </td></tr>
+</table>
+    <input type="submit" id="submit" value="Save">
+</form>"""
 
 
-class TestTableFieldSet(WidgetTest):
+class TestTableFieldset(WidgetTest):
     widget = twb.TableFieldSet
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'field1': twb.TextField(id='field1'),
+             'field2': twb.TextField(id='field2'),
+             'field3': twb.TextField(id='field3'),
+             }
+    expected = """<fieldset>
+    <legend></legend>
+    <table>
+    <tr class="odd" id="field1:container">
+        <th>Field1</th>
+        <td>
+            <input name="field1" id="field1" type="text" class="input-medium">
+            <span id="field1:error"></span>
+        </td>
+    </tr><tr class="even" id="field2:container">
+        <th>Field2</th>
+        <td>
+            <input name="field2" id="field2" type="text" class="input-medium">
+            <span id="field2:error"></span>
+        </td>
+    </tr><tr class="odd" id="field3:container">
+        <th>Field3</th>
+        <td>
+            <input name="field3" id="field3" type="text" class="input-medium">
+            <span id="field3:error"></span>
+        </td>
+    </tr>
+    <tr class="error"><td colspan="2">
+        <span id=":error"></span>
+    </td></tr>
+</table>
+</fieldset>"""
 
 
 class TestTableLayout(WidgetTest):
     widget = twb.TableLayout
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'children': [twb.TextField(id='field1'),
+                          twb.TextField(id='field2'),
+                          twb.TextField(id='field3')]}
+    expected = """<table>
+    <tr class="odd" id="field1:container">
+        <th>Field1</th>
+        <td>
+            <input name="field1" id="field1" type="text" class="input-medium">
+            <span id="field1:error"></span>
+        </td>
+    </tr><tr class="even" id="field2:container">
+        <th>Field2</th>
+        <td>
+            <input name="field2" id="field2" type="text" class="input-medium">
+            <span id="field2:error"></span>
+        </td>
+    </tr><tr class="odd" id="field3:container">
+        <th>Field3</th>
+        <td>
+            <input name="field3" id="field3" type="text" class="input-medium">
+            <span id="field3:error"></span>
+        </td>
+    </tr>
+    <tr class="error"><td colspan="2">
+        <span id=":error"></span>
+    </td></tr>
+</table>"""
 
 
 class TestVerticalCheckBoxTable(WidgetTest):
