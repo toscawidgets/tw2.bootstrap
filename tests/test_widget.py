@@ -3,7 +3,7 @@ from tw2.core.testbase import (
 )
 import tw2.core as twc
 import tw2.forms as twf
-import tw2.bootstrap as twb
+import tw2.bootstrap.forms as twb
 
 import datetime
 

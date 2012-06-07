@@ -1,5 +1,5 @@
 """
-``tw2.bootstrap`` is a drop-in replacement for ``tw2.forms`` enabled to
+``tw2.bootstrap.forms`` is a drop-in replacement for ``tw2.forms`` enabled to
 work with `twitter bootstrap <http://twitter.github.com/bootstrap/>`_.
 """
 
@@ -8,7 +8,7 @@ import tw2.forms as twf
 import tw2.jquery as twj
 
 from datetime import datetime
-from tw2.bootstrap.utils import replace_all
+from tw2.bootstrap.forms.utils import replace_all
 
 __all__ = [
     'bootstrap_css',
@@ -121,9 +121,9 @@ timepicker_js = twc.JSLink(
 
 
 class BootstrapMixin(twc.Widget):
-    """ Abstract base class for tw2.bootstrap widgets. """
+    """ Abstract base class for tw2.bootstrap.forms widgets. """
 
-    #template = "genshi:tw2.bootstrap.templates.bootstrap"
+    #template = "genshi:tw2.bootstrap.forms.templates.bootstrap"
 
     # declare static resources here
     # you can remove either or both of these, if not needed
@@ -158,7 +158,7 @@ class TextArea(BootstrapMixin, twf.TextArea):
 
 
 class _BoolControl(BootstrapMixin):
-    template = "tw2.bootstrap.templates.bool_control"
+    template = "tw2.bootstrap.forms.templates.bool_control"
 
     def prepare(self):
         super(_BoolControl, self).prepare()
@@ -191,7 +191,7 @@ class IgnoredField(twf.HiddenField):
 
 
 class LabelField(BootstrapMixin, twf.LabelField):
-    template = "tw2.bootstrap.templates.label_field"
+    template = "tw2.bootstrap.forms.templates.label_field"
     css_class = "input-medium uneditable-input"
 
     def prepare(self):
@@ -226,12 +226,12 @@ class HorizontalLayout(BootstrapMixin, twf.widgets.BaseLayout):
     Arrange widgets and labels horizontally:
     Float left, right-aligned labels on same line as controls
     """ + twf.widgets.BaseLayout.__doc__
-    template = "mako:tw2.bootstrap.templates.horizontal_layout"
+    template = "mako:tw2.bootstrap.forms.templates.horizontal_layout"
 
 
 class HorizontalForm(BootstrapMixin, twf.Form):
     """Equivalent to a Form containing a HorizontalLayout."""
-    template = "mako:tw2.bootstrap.templates.horizontal_form"
+    template = "mako:tw2.bootstrap.forms.templates.horizontal_form"
     css_class = "form-horizontal"
     child = twc.Variable(default=HorizontalLayout)
     children = twc.Required
@@ -242,7 +242,7 @@ class HorizontalForm(BootstrapMixin, twf.Form):
 
 class CalendarDatePicker(TextField):
     resources = TextField.resources + [datepicker_js, datepicker_css]
-    template = "mako:tw2.bootstrap.templates.datepicker"
+    template = "mako:tw2.bootstrap.forms.templates.datepicker"
 
     style = twc.Param(
         'Specify the template to use. [field, component]',
@@ -416,11 +416,11 @@ class PostlabeledPartialRadioButton(BootstrapMixin,
 
 
 class RadioButtonList(BootstrapMixin, twf.RadioButtonList):
-    template = "tw2.bootstrap.templates.selection_list"
+    template = "tw2.bootstrap.forms.templates.selection_list"
 
 
 class RadioButtonTable(BootstrapMixin, twf.RadioButtonTable):
-    template = "tw2.bootstrap.templates.selection_table"
+    template = "tw2.bootstrap.forms.templates.selection_table"
 
 
 class RowLayout(BootstrapMixin, twf.RowLayout):
@@ -444,7 +444,7 @@ class SingleSelectField(BootstrapMixin, twf.SingleSelectField):
 
 
 class Spacer(BootstrapMixin, twf.Spacer):
-    template = "tw2.bootstrap.templates.spacer"
+    template = "tw2.bootstrap.forms.templates.spacer"
 
 
 class TableFieldSet(BootstrapMixin, twf.TableFieldSet):
@@ -460,10 +460,10 @@ class TableLayout(BootstrapMixin, twf.TableLayout):
 
 
 class VerticalCheckBoxTable(SelectionField, twf.VerticalCheckBoxTable):
-    template = "tw2.bootstrap.templates.vertical_selection_table"
+    template = "tw2.bootstrap.forms.templates.vertical_selection_table"
     css_class = "table table-condensed"
 
 
 class VerticalRadioButtonTable(SelectionField, twf.VerticalRadioButtonTable):
-    template = "tw2.bootstrap.templates.vertical_selection_table"
+    template = "tw2.bootstrap.forms.templates.vertical_selection_table"
     css_class = "table table-condensed"
