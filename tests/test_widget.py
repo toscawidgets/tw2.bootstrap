@@ -379,8 +379,18 @@ class TestSeparatedRadioButtonTable(WidgetTest):
 
 
 class TestSingleSelectField(WidgetTest):
+    """ There's actually nothing special about this guy.  """
     widget = twb.SingleSelectField
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {
+             'options':((1, 'a'), (2, 'b'), (3, 'c')), 'id':'hid',
+             'validator': twc.IntValidator(),
+             }
+    expected = """<select id="hid" name="hid">
+                        <option></option>
+                        <option value="1">a</option>
+                        <option value="2">b</option>
+                        <option value="3">c</option>
+                  </select>"""
 
 
 class TestSpacer(WidgetTest):
