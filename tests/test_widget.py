@@ -48,6 +48,8 @@ def test_every_widget_covered():
         # These aren't tested in tw2.forms, so we won't waste our time here.
         twb.SeparatedRadioButtonTable,
         twb.SeparatedCheckBoxTable,
+        twb.PostlabeledCheckBox,
+        twb.PostlabeledPartialRadioButton,
     ]
 
     is_widget = lambda obj: isinstance(obj, twc.widgets.WidgetMeta)
@@ -343,16 +345,6 @@ class TestMultipleSelectField(WidgetTest):
 
 class TestMultipleSelectionField(WidgetTest):
     widget = twb.MultipleSelectionField
-    expected = """<TODO>How should this actually work?</TODO>"""
-
-
-class TestPostlabeledCheckBox(WidgetTest):
-    widget = twb.PostlabeledCheckBox
-    expected = """<TODO>How should this actually work?</TODO>"""
-
-
-class TestPostlabeledPartialRadioButton(WidgetTest):
-    widget = twb.PostlabeledPartialRadioButton
     expected = """<TODO>How should this actually work?</TODO>"""
 
 
