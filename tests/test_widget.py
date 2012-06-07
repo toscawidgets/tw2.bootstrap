@@ -37,9 +37,17 @@ def test_every_widget_covered():
         twb.bootstrap_responsive_css,
         twb.bootstrap_js,
 
+        # These are base-classes that ought not to be displayed on their own.
         twb.Bootstrap,
         twb.InputField,
+        twb.SelectionField,
+
+        # This doesn't fit into bootstrap very well.
         twb.LinkField,
+
+        # These aren't tested in tw2.forms, so we won't waste our time here.
+        twb.SeparatedRadioButtonTable,
+        twb.SeparatedCheckBoxTable,
     ]
 
     is_widget = lambda obj: isinstance(obj, twc.widgets.WidgetMeta)
@@ -360,21 +368,6 @@ class TestRadioButtonTable(WidgetTest):
 
 class TestRowLayout(WidgetTest):
     widget = twb.RowLayout
-    expected = """<TODO>How should this actually work?</TODO>"""
-
-
-class TestSelectionField(WidgetTest):
-    widget = twb.SelectionField
-    expected = """<TODO>How should this actually work?</TODO>"""
-
-
-class TestSeparatedCheckBoxTable(WidgetTest):
-    widget = twb.SeparatedCheckBoxTable
-    expected = """<TODO>How should this actually work?</TODO>"""
-
-
-class TestSeparatedRadioButtonTable(WidgetTest):
-    widget = twb.SeparatedRadioButtonTable
     expected = """<TODO>How should this actually work?</TODO>"""
 
 
