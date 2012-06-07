@@ -314,32 +314,122 @@ class TestFormPage(WidgetTest):
 
 class TestGridLayout(WidgetTest):
     widget = twb.GridLayout
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'children': [twb.TextField(id='field1'),
+                          twb.TextField(id='field2'),
+                          twb.TextField(id='field3')],
+             'repetition': 1,
+             }
+    expected = """
+    <table>
+    <tr><th>Field1</th><th>Field2</th><th>Field3</th></tr>
+    <tr class="error"><td colspan="0" id=":error">
+    </td></tr>
+    </table>"""
 
 
 class TestImageButton(WidgetTest):
     widget = twb.ImageButton
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {
+        'value': 'info',
+        'name': 'hidden_name',
+        'link': '/somewhere.gif',
+    }
+    expected = """
+    <input src="/somewhere.gif" name="hidden_name"
+           value="info" alt="" type="image">
+    """
 
 
 class TestLabel(WidgetTest):
     widget = twb.Label
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'text': 'something'}
+    expected = """<span>something</span>"""
 
 
-class TestListFieldSet(WidgetTest):
+class TestListFieldset(WidgetTest):
     widget = twb.ListFieldSet
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'field1': twb.TextField(id='field1'),
+             'field2': twb.TextField(id='field2'),
+             'field3': twb.TextField(id='field3'),
+             }
+    expected = """<fieldset >
+    <legend></legend>
+    <ul >
+    <li class="odd">
+     <label>Field1</label>
+        <input name="field1" id="field1" type="text" class="input-medium"/>
+        <span id="field1:error" class="error"></span>
+    </li>
+    <li class="even">
+     <label>Field2</label>
+        <input name="field2" id="field2" type="text" class="input-medium"/>
+        <span id="field2:error" class="error"></span>
+    </li>
+    <li class="odd">
+     <label>Field3</label>
+        <input name="field3" id="field3" type="text" class="input-medium"/>
+        <span id="field3:error" class="error"></span>
+    </li>
+    <li class="error"><span id=":error" class="error"></span></li>
+</ul>
+</fieldset>"""
 
 
 class TestListForm(WidgetTest):
     widget = twb.ListForm
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'field1': twb.TextField(id='field1'),
+             'field2': twb.TextField(id='field2'),
+             'field3': twb.TextField(id='field3'),
+             }
+    expected = """<form method="post" enctype="multipart/form-data">
+     <span class="error"></span>
+    <ul >
+    <li class="odd">
+     <label>Field1</label>
+        <input name="field1" id="field1" type="text" class="input-medium"/>
+        <span id="field1:error" class="error"></span>
+    </li>
+    <li class="even">
+     <label>Field2</label>
+        <input name="field2" id="field2" type="text" class="input-medium"/>
+        <span id="field2:error" class="error"></span>
+    </li>
+    <li class="odd">
+     <label>Field3</label>
+        <input name="field3" id="field3" type="text" class="input-medium"/>
+        <span id="field3:error" class="error"></span>
+    </li>
+    <li class="error"><span id=":error" class="error"></span></li>
+</ul>
+    <input type="submit" id="submit" value="Save"/>
+</form>"""
 
 
 class TestListLayout(WidgetTest):
     widget = twb.ListLayout
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'children': [
+        twb.TextField(id='field1'),
+        twb.TextField(id='field2'),
+        twb.TextField(id='field3'),
+    ]}
+    expected = """\
+<ul>
+    <li class="odd">
+        <label>Field1</label>
+        <input name="field1" id="field1" type="text" class="input-medium">
+        <span id="field1:error" class="error"></span>
+    </li><li class="even">
+        <label>Field2</label>
+        <input name="field2" id="field2" type="text" class="input-medium">
+        <span id="field2:error" class="error"></span>
+    </li><li class="odd">
+        <label>Field3</label>
+        <input name="field3" id="field3" type="text" class="input-medium">
+        <span id="field3:error" class="error"></span>
+    </li>
+    <li class="error"><span id=":error" class="error"></span></li>
+</ul>"""
+    declarative = True
 
 
 class TestMultipleSelectField(WidgetTest):
@@ -419,7 +509,8 @@ class TestRowLayout(WidgetTest):
                           twb.TextField(id='field3')],
              'repetition': 1,
              }
-    expected = """<tr class="even">
+    expected = """
+    <tr class="even">
     <td>
         <input name="field1" id="field1" type="text" class="input-medium">
     </td><td>
