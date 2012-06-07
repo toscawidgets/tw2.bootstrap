@@ -15,7 +15,7 @@ __all__ = [
     'bootstrap_responsive_css',
     'bootstrap_js',
 
-    'Bootstrap',
+    'BootstrapMixin',
 
     'InputField',
     'TextField',
@@ -120,7 +120,7 @@ timepicker_js = twc.JSLink(
     location='headbottom')
 
 
-class Bootstrap(twc.Widget):
+class BootstrapMixin(twc.Widget):
     """ Abstract base class for tw2.bootstrap widgets. """
 
     #template = "genshi:tw2.bootstrap.templates.bootstrap"
@@ -140,12 +140,12 @@ class Bootstrap(twc.Widget):
 #        # put custom initialisation code here
 #
     def prepare(self):
-        super(Bootstrap, self).prepare()
+        super(BootstrapMixin, self).prepare()
         if 'id' in self.attrs:
             self.selector = "#" + self.attrs['id'].replace(':', '\\:')
 
 
-class InputField(Bootstrap, twf.InputField):
+class InputField(BootstrapMixin, twf.InputField):
     css_class = 'input-medium'
 
 
@@ -153,11 +153,11 @@ class TextField(InputField, twf.TextField):
     pass
 
 
-class TextArea(Bootstrap, twf.TextArea):
+class TextArea(BootstrapMixin, twf.TextArea):
     css_class = 'input-xlarge'
 
 
-class _BoolControl(Bootstrap):
+class _BoolControl(BootstrapMixin):
     template = "tw2.bootstrap.templates.bool_control"
 
     def prepare(self):
@@ -178,7 +178,7 @@ class PasswordField(InputField, twf.PasswordField):
     pass
 
 
-class FileField(Bootstrap, twf.FileField):
+class FileField(BootstrapMixin, twf.FileField):
     css_class = "input-file"
 
 
@@ -190,7 +190,7 @@ class IgnoredField(twf.HiddenField):
     pass
 
 
-class LabelField(Bootstrap, twf.LabelField):
+class LabelField(BootstrapMixin, twf.LabelField):
     template = "tw2.bootstrap.templates.label_field"
     css_class = "input-medium uneditable-input"
 
@@ -200,7 +200,7 @@ class LabelField(Bootstrap, twf.LabelField):
         del self.attrs['class']
 
 
-class LinkField(Bootstrap, twf.LinkField):
+class LinkField(BootstrapMixin, twf.LinkField):
     """ TODO -- not sure how to take this one on.
 
     It doesn't seem to nicely fit the bootstrap paradigm.  Do you have
@@ -209,7 +209,7 @@ class LinkField(Bootstrap, twf.LinkField):
     pass
 
 
-class Button(Bootstrap, twf.Button):
+class Button(BootstrapMixin, twf.Button):
     css_class = 'btn'
 
 
@@ -221,7 +221,7 @@ class ResetButton(Button, twf.ResetButton):
     pass
 
 
-class HorizontalLayout(Bootstrap, twf.widgets.BaseLayout):
+class HorizontalLayout(BootstrapMixin, twf.widgets.BaseLayout):
     __doc__ = """
     Arrange widgets and labels horizontally:
     Float left, right-aligned labels on same line as controls
@@ -229,7 +229,7 @@ class HorizontalLayout(Bootstrap, twf.widgets.BaseLayout):
     template = "mako:tw2.bootstrap.templates.horizontal_layout"
 
 
-class HorizontalForm(Bootstrap, twf.Form):
+class HorizontalForm(BootstrapMixin, twf.Form):
     """Equivalent to a Form containing a HorizontalLayout."""
     template = "mako:tw2.bootstrap.templates.horizontal_form"
     css_class = "form-horizontal"
@@ -323,8 +323,11 @@ class CalendarTimePicker(TextField):
         )))
 
 
-class CalendarDateTimePicker(Bootstrap, twc.CompoundWidget):
-    resources = set(CalendarDatePicker.resources + CalendarTimePicker.resources)
+class CalendarDateTimePicker(BootstrapMixin, twc.CompoundWidget):
+    resources = set(
+        CalendarDatePicker.resources +
+        CalendarTimePicker.resources
+    )
     date = CalendarDatePicker()
     time = CalendarTimePicker()
 
@@ -347,114 +350,113 @@ class CalendarDateTimePicker(Bootstrap, twc.CompoundWidget):
         super(CalendarDateTimePicker, self).prepare()
 
 
-class CheckBoxList(Bootstrap, twf.CheckBoxList):
+class CheckBoxList(BootstrapMixin, twf.CheckBoxList):
     pass
 
 
-class CheckBoxTable(Bootstrap, twf.CheckBoxTable):
+class CheckBoxTable(BootstrapMixin, twf.CheckBoxTable):
     pass
 
 
-class DataGrid(Bootstrap, twf.DataGrid):
+class DataGrid(BootstrapMixin, twf.DataGrid):
     pass
 
 
-class FieldSet(Bootstrap, twf.FieldSet):
+class FieldSet(BootstrapMixin, twf.FieldSet):
     pass
 
 
-class Form(Bootstrap, twf.Form):
+class Form(BootstrapMixin, twf.Form):
     pass
 
 
-class FormPage(Bootstrap, twf.FormPage):
+class FormPage(BootstrapMixin, twf.FormPage):
     pass
 
 
-class GridLayout(Bootstrap, twf.GridLayout):
+class GridLayout(BootstrapMixin, twf.GridLayout):
     pass
 
 
-class ImageButton(Bootstrap, twf.ImageButton):
+class ImageButton(BootstrapMixin, twf.ImageButton):
     pass
 
 
-class Label(Bootstrap, twf.Label):
+class Label(BootstrapMixin, twf.Label):
     pass
 
 
-class ListFieldSet(Bootstrap, twf.ListFieldSet):
+class ListFieldSet(BootstrapMixin, twf.ListFieldSet):
     pass
 
 
-class ListForm(Bootstrap, twf.ListForm):
+class ListForm(BootstrapMixin, twf.ListForm):
     pass
 
 
-class ListLayout(Bootstrap, twf.ListLayout):
+class ListLayout(BootstrapMixin, twf.ListLayout):
     pass
 
 
-class MultipleSelectField(Bootstrap, twf.MultipleSelectField):
+class MultipleSelectField(BootstrapMixin, twf.MultipleSelectField):
     pass
 
 
-class MultipleSelectionField(Bootstrap, twf.MultipleSelectionField):
+class MultipleSelectionField(BootstrapMixin, twf.MultipleSelectionField):
     pass
 
 
-class PostlabeledCheckBox(Bootstrap, twf.PostlabeledCheckBox):
+class PostlabeledCheckBox(BootstrapMixin, twf.PostlabeledCheckBox):
     pass
 
 
-class PostlabeledPartialRadioButton(Bootstrap,
+class PostlabeledPartialRadioButton(BootstrapMixin,
                                     twf.PostlabeledPartialRadioButton):
     pass
 
 
-class RadioButtonList(Bootstrap, twf.RadioButtonList):
+class RadioButtonList(BootstrapMixin, twf.RadioButtonList):
     template = "tw2.bootstrap.templates.selection_list"
 
 
-class RadioButtonTable(Bootstrap, twf.RadioButtonTable):
+class RadioButtonTable(BootstrapMixin, twf.RadioButtonTable):
     template = "tw2.bootstrap.templates.selection_table"
 
 
-class RowLayout(Bootstrap, twf.RowLayout):
+class RowLayout(BootstrapMixin, twf.RowLayout):
     pass
 
 
-class SelectionField(Bootstrap, twf.SelectionField):
+class SelectionField(BootstrapMixin, twf.SelectionField):
     pass
 
 
-class SeparatedCheckBoxTable(Bootstrap, twf.SeparatedCheckBoxTable):
+class SeparatedCheckBoxTable(BootstrapMixin, twf.SeparatedCheckBoxTable):
     pass
 
 
-class SeparatedRadioButtonTable(Bootstrap, twf.SeparatedRadioButtonTable):
+class SeparatedRadioButtonTable(BootstrapMixin, twf.SeparatedRadioButtonTable):
     pass
 
 
-class SingleSelectField(Bootstrap, twf.SingleSelectField):
+class SingleSelectField(BootstrapMixin, twf.SingleSelectField):
     pass
 
 
-class Spacer(Bootstrap, twf.Spacer):
+class Spacer(BootstrapMixin, twf.Spacer):
     template = "tw2.bootstrap.templates.spacer"
 
 
-class TableFieldSet(Bootstrap, twf.TableFieldSet):
+class TableFieldSet(BootstrapMixin, twf.TableFieldSet):
     pass
 
 
-class TableForm(Bootstrap, twf.TableForm):
+class TableForm(BootstrapMixin, twf.TableForm):
     pass
 
 
-class TableLayout(Bootstrap, twf.TableLayout):
+class TableLayout(BootstrapMixin, twf.TableLayout):
     pass
-
 
 
 class VerticalCheckBoxTable(SelectionField, twf.VerticalCheckBoxTable):

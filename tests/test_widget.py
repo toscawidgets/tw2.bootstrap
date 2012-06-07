@@ -38,7 +38,7 @@ def test_every_widget_covered():
         twb.bootstrap_js,
 
         # These are base-classes that ought not to be displayed on their own.
-        twb.Bootstrap,
+        twb.BootstrapMixin,
         twb.InputField,
         twb.SelectionField,
 
@@ -359,8 +359,8 @@ class TestPostlabeledPartialRadioButton(WidgetTest):
 class TestRadioButtonList(WidgetTest):
     widget = twb.RadioButtonList
     attrs = {
-        'options':(('a','1'), ('b', '2'), ('c', '3')),
-        'id':'something',
+        'options': (('a', '1'), ('b', '2'), ('c', '3')),
+        'id': 'something',
     }
     expected = """<ul id="something">
     <li>
@@ -382,7 +382,7 @@ class TestRadioButtonList(WidgetTest):
 class TestRadioButtonTable(WidgetTest):
     widget = twb.RadioButtonTable
     attrs = {
-        'options': (('a','1'), ('b', '2'), ('c', '3')),
+        'options': (('a', '1'), ('b', '2'), ('c', '3')),
         'id': 'something',
     }
     expected = """<table id="something">
@@ -409,6 +409,7 @@ class TestRadioButtonTable(WidgetTest):
     </tbody>
 </table>"""
 
+
 class TestRowLayout(WidgetTest):
     widget = twb.RowLayout
     attrs = {'children': [twb.TextField(id='field1'),
@@ -433,9 +434,10 @@ class TestSingleSelectField(WidgetTest):
     """ There's actually nothing special about this guy.  """
     widget = twb.SingleSelectField
     attrs = {
-             'options':((1, 'a'), (2, 'b'), (3, 'c')), 'id':'hid',
-             'validator': twc.IntValidator(),
-             }
+        'options': ((1, 'a'), (2, 'b'), (3, 'c')),
+        'id': 'hid',
+        'validator': twc.IntValidator(),
+    }
     expected = """<select id="hid" name="hid">
                         <option></option>
                         <option value="1">a</option>
