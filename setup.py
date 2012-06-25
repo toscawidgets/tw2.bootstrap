@@ -9,12 +9,12 @@ except:
 
 setup(
     name='tw2.bootstrap.forms',
-    version='0.1',
+    version='2.0.0',
     description="A drop-in replacement for tw2.forms but with bootstrap!",
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
     author='Moritz Schlarb',
     author_email='mail@moritz-schlarb.de',
-    url='',
+    url='http://github.com/toscawidgets/tw2.bootstrap',
     install_requires=[
         "tw2.core",
         "tw2.forms",
