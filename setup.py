@@ -8,13 +8,13 @@ except:
     pass
 
 setup(
-    name='tw2.bootstrap',
-    version='0.1',
+    name='tw2.bootstrap.forms',
+    version='2.0.0',
     description="A drop-in replacement for tw2.forms but with bootstrap!",
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
     author='Moritz Schlarb',
     author_email='mail@moritz-schlarb.de',
-    url='',
+    url='http://github.com/toscawidgets/tw2.bootstrap',
     install_requires=[
         "tw2.core",
         "tw2.forms",
@@ -23,7 +23,10 @@ setup(
         # "Genshi",
         ],
     packages=find_packages(exclude=['ez_setup', 'tests']),
-    namespace_packages=['tw2'],
+    namespace_packages=[
+        'tw2',
+        'tw2.bootstrap',
+    ],
     zip_safe=False,
     include_package_data=True,
     test_suite = 'nose.collector',
@@ -46,7 +49,7 @@ setup(
     entry_points="""
         [tw2.widgets]
         # Register your widgets so they can be listed in the WidgetBrowser
-        widgets = tw2.bootstrap
+        widgets = tw2.bootstrap.forms
     """,
     keywords = [
         'toscawidgets.widgets',

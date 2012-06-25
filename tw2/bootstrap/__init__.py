@@ -1,4 +1,1 @@
-import widgets
-__doc__ = widgets.__doc__
-
-from widgets import *
+__import__('pkg_resources').declare_namespace(__name__)

@@ -3,7 +3,9 @@ from tw2.core.testbase import (
 )
 import tw2.core as twc
 import tw2.forms as twf
-import tw2.bootstrap as twb
+import tw2.bootstrap.forms as twb
+
+import datetime
 
 
 def test_every_widget_exposed():
@@ -35,9 +37,25 @@ def test_every_widget_covered():
         twb.bootstrap_responsive_css,
         twb.bootstrap_js,
 
-        twb.Bootstrap,
+        # These are base-classes that ought not to be displayed on their own.
+        twb.BootstrapMixin,
         twb.InputField,
+        twb.SelectionField,
+
+        # This doesn't fit into bootstrap very well.
         twb.LinkField,
+
+        # These aren't tested in tw2.forms, so we won't waste our time here.
+        twb.SeparatedRadioButtonTable,
+        twb.SeparatedCheckBoxTable,
+        twb.PostlabeledCheckBox,
+        twb.PostlabeledPartialRadioButton,
+        twb.FieldSet,
+        twb.DataGrid,
+
+        # This one is an abandoned child...
+        # Not to be confused with MultipleSelectField.
+        twb.MultipleSelectionField
     ]
 
     is_widget = lambda obj: isinstance(obj, twc.widgets.WidgetMeta)
@@ -240,128 +258,389 @@ class TestCalendarDatePicker(WidgetTest):
     widget = twb.CalendarDatePicker
     expected = """
     <input name="bootstrap-test" type="text" id="bootstrap-test"
+           class="input-medium" value="%s" data-date="%s"
+           data-date-format="mm/dd/yyyy" />
+    """ % (
+        datetime.datetime.now().strftime("%m/%d/%Y"),
+        datetime.datetime.now().strftime("%m/%d/%Y"),
+    )
+
+
+class TestCalendarTimePicker(WidgetTest):
+    widget = twb.CalendarTimePicker
+    expected = """
+    <input name="bootstrap-test" type="text" id="bootstrap-test"
            class="input-medium"/>
     """
 
 
 class TestCalendarDateTimePicker(WidgetTest):
     widget = twb.CalendarDateTimePicker
-    expected = """<TODO>How should this actually work?</TODO>"""
+    expected = """
+    <div id="bootstrap-test">
+       <input name="bootstrap-test:date" type="text" id="bootstrap-test:date"
+              class="input-medium" value="%s" data-date="%s"
+              data-date-format="mm/dd/yyyy" />
+       <input name="bootstrap-test:time" type="text"
+              id="bootstrap-test:time" class="input-medium"/>
+    </div>
+    """ % (
+        datetime.datetime.now().strftime("%m/%d/%Y"),
+        datetime.datetime.now().strftime("%m/%d/%Y"),
+    )
 
 
 class TestCheckBoxList(WidgetTest):
     widget = twb.CheckBoxList
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {
+        'css_class': 'something',
+        'options': (('a','1'), ('b', '2'), ('c', '3')),
+        'id': 'something',
+    }
+    expected = """<ul class="something" id="something">
+    <li>
+        <label class="checkbox" for="something:0">
+        <input type="checkbox" name="something" value="a" id="something:0">
+        1</label>
+    </li><li>
+        <label class="checkbox" for="something:1">
+        <input type="checkbox" name="something" value="b" id="something:1">
+        2</label>
+    </li><li>
+        <label class="checkbox" for="something:2">
+        <input type="checkbox" name="something" value="c" id="something:2">
+        3</label>
+    </li>
+</ul>
+"""
 
 
 class TestCheckBoxTable(WidgetTest):
     widget = twb.CheckBoxTable
-    expected = """<TODO>How should this actually work?</TODO>"""
-
-
-class TestDataGrid(WidgetTest):
-    widget = twb.DataGrid
-    expected = """<TODO>How should this actually work?</TODO>"""
-
-
-class TestFieldSet(WidgetTest):
-    widget = twb.FieldSet
-    expected = """<TODO>How should this actually work?</TODO>"""
-
+    attrs = {
+        'css_class': 'something',
+        'options': (('a','1'), ('b', '2'), ('c', '3')),
+        'id': 'something',
+    }
+    expected = """
+<table class="something" id="something">
+    <tbody>
+    <tr>
+        <td>
+            <label class="checkbox" for="something:0">
+            <input type="checkbox" name="something"
+            value="a" id="something:0">
+            1</label>
+        </td>
+    </tr><tr>
+        <td>
+            <label class="checkbox" for="something:1">
+            <input type="checkbox" name="something"
+            value="b" id="something:1">
+            2</label>
+        </td>
+    </tr><tr>
+        <td>
+            <label class="checkbox" for="something:2">
+            <input type="checkbox" name="something"
+            value="c" id="something:2">
+            3</label>
+        </td>
+    </tr>
+    </tbody>
+</table>"""
 
 class TestForm(WidgetTest):
     widget = twb.Form
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'child': twb.TableLayout(field1=twb.TextField(id='field1')),
+        'buttons': [twb.SubmitButton, twb.ResetButton()]}
+    expected = """
+    <form enctype="multipart/form-data" method="post">
+         <span class="error"></span>
+        <table >
+        <tr class="odd"  id="field1:container">
+            <th>Field1</th>
+            <td >
+                <input name="field1" type="text" id="field1" class="input-medium"/>
+                <span id="field1:error"></span>
+            </td>
+        </tr>
+        <tr class="error"><td colspan="2">
+            <span id=":error"></span>
+        </td></tr>
+    </table>
+            <input type="submit" class="btn btn-primary"/>
+            <input type="reset" class="btn"/>
+    </form>"""
 
 
 class TestFormPage(WidgetTest):
     widget = twb.FormPage
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'child':twb.TableForm(children=[
+        twb.TextField(id='field1'),
+        twb.TextField(id='field2'),
+        twb.TextField(id='field3'),]),
+        'title':'some title',
+        'id': 'mytestwidget',
+    }
+    expected = """<html>
+<head><title>some title</title></head>
+<body id="mytestwidget:page"><h1>some title</h1><form method="post" id="mytestwidget:form" enctype="multipart/form-data">
+     <span class="error"></span>
+    <table id="mytestwidget">
+    <tr class="odd" id="mytestwidget:field1:container">
+        <th>Field1</th>
+        <td>
+            <input name="mytestwidget:field1" id="mytestwidget:field1" type="text" class="input-medium">
+            <span id="mytestwidget:field1:error"></span>
+        </td>
+    </tr><tr class="even" id="mytestwidget:field2:container">
+        <th>Field2</th>
+        <td>
+            <input name="mytestwidget:field2" id="mytestwidget:field2" type="text" class="input-medium">
+            <span id="mytestwidget:field2:error"></span>
+        </td>
+    </tr><tr class="odd" id="mytestwidget:field3:container">
+        <th>Field3</th>
+        <td>
+            <input name="mytestwidget:field3" id="mytestwidget:field3" type="text" class="input-medium">
+            <span id="mytestwidget:field3:error"></span>
+        </td>
+    </tr>
+    <tr class="error"><td colspan="2">
+        <span id="mytestwidget:error"></span>
+    </td></tr>
+</table>
+    <input type="submit" id="submit" value="Save" class="btn btn-primary"/>
+</form></body>
+</html>"""
 
 
 class TestGridLayout(WidgetTest):
     widget = twb.GridLayout
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'children': [twb.TextField(id='field1'),
+                          twb.TextField(id='field2'),
+                          twb.TextField(id='field3')],
+             'repetition': 1,
+             }
+    expected = """
+    <table>
+    <tr><th>Field1</th><th>Field2</th><th>Field3</th></tr>
+    <tr class="error"><td colspan="0" id=":error">
+    </td></tr>
+    </table>"""
 
 
 class TestImageButton(WidgetTest):
     widget = twb.ImageButton
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {
+        'value': 'info',
+        'name': 'hidden_name',
+        'link': '/somewhere.gif',
+    }
+    expected = """
+    <input src="/somewhere.gif" name="hidden_name"
+           value="info" alt="" type="image">
+    """
 
 
 class TestLabel(WidgetTest):
     widget = twb.Label
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'text': 'something'}
+    expected = """<span>something</span>"""
 
 
-class TestListFieldSet(WidgetTest):
+class TestListFieldset(WidgetTest):
     widget = twb.ListFieldSet
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'field1': twb.TextField(id='field1'),
+             'field2': twb.TextField(id='field2'),
+             'field3': twb.TextField(id='field3'),
+             }
+    expected = """<fieldset >
+    <legend></legend>
+    <ul >
+    <li class="odd">
+     <label>Field1</label>
+        <input name="field1" id="field1" type="text" class="input-medium"/>
+        <span id="field1:error" class="error"></span>
+    </li>
+    <li class="even">
+     <label>Field2</label>
+        <input name="field2" id="field2" type="text" class="input-medium"/>
+        <span id="field2:error" class="error"></span>
+    </li>
+    <li class="odd">
+     <label>Field3</label>
+        <input name="field3" id="field3" type="text" class="input-medium"/>
+        <span id="field3:error" class="error"></span>
+    </li>
+    <li class="error"><span id=":error" class="error"></span></li>
+</ul>
+</fieldset>"""
 
 
 class TestListForm(WidgetTest):
     widget = twb.ListForm
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'field1': twb.TextField(id='field1'),
+             'field2': twb.TextField(id='field2'),
+             'field3': twb.TextField(id='field3'),
+             }
+    expected = """<form method="post" enctype="multipart/form-data">
+     <span class="error"></span>
+    <ul >
+    <li class="odd">
+     <label>Field1</label>
+        <input name="field1" id="field1" type="text" class="input-medium"/>
+        <span id="field1:error" class="error"></span>
+    </li>
+    <li class="even">
+     <label>Field2</label>
+        <input name="field2" id="field2" type="text" class="input-medium"/>
+        <span id="field2:error" class="error"></span>
+    </li>
+    <li class="odd">
+     <label>Field3</label>
+        <input name="field3" id="field3" type="text" class="input-medium"/>
+        <span id="field3:error" class="error"></span>
+    </li>
+    <li class="error"><span id=":error" class="error"></span></li>
+</ul>
+    <input type="submit" id="submit" value="Save" class="btn btn-primary">
+</form>"""
 
 
 class TestListLayout(WidgetTest):
     widget = twb.ListLayout
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'children': [
+        twb.TextField(id='field1'),
+        twb.TextField(id='field2'),
+        twb.TextField(id='field3'),
+    ]}
+    expected = """\
+<ul>
+    <li class="odd">
+        <label>Field1</label>
+        <input name="field1" id="field1" type="text" class="input-medium">
+        <span id="field1:error" class="error"></span>
+    </li><li class="even">
+        <label>Field2</label>
+        <input name="field2" id="field2" type="text" class="input-medium">
+        <span id="field2:error" class="error"></span>
+    </li><li class="odd">
+        <label>Field3</label>
+        <input name="field3" id="field3" type="text" class="input-medium">
+        <span id="field3:error" class="error"></span>
+    </li>
+    <li class="error"><span id=":error" class="error"></span></li>
+</ul>"""
+    declarative = True
 
 
 class TestMultipleSelectField(WidgetTest):
     widget = twb.MultipleSelectField
-    expected = """<TODO>How should this actually work?</TODO>"""
-
-
-class TestMultipleSelectionField(WidgetTest):
-    widget = twb.MultipleSelectionField
-    expected = """<TODO>How should this actually work?</TODO>"""
-
-
-class TestPostlabeledCheckBox(WidgetTest):
-    widget = twb.PostlabeledCheckBox
-    expected = """<TODO>How should this actually work?</TODO>"""
-
-
-class TestPostlabeledPartialRadioButton(WidgetTest):
-    widget = twb.PostlabeledPartialRadioButton
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {
+        'css_class': 'something',
+        'options': (('a', '1'), ('b', '2'), ('c', '3')),
+        'id': "hid",
+    }
+    expected = """
+    <select class="something" multiple="multiple" id="hid" name="hid">
+                      <option value="a">1</option>
+                      <option value="b">2</option>
+                      <option value="c">3</option>
+                  </select>"""
+    validate_params = [[None, {'hid':'b'}, [u'b']]]
 
 
 class TestRadioButtonList(WidgetTest):
     widget = twb.RadioButtonList
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {
+        'options': (('a', '1'), ('b', '2'), ('c', '3')),
+        'id': 'something',
+    }
+    expected = """<ul id="something">
+    <li>
+        <label for="something:0" class="radio">
+        <input type="radio" name="something" value="a" id="something:0">
+        1</label>
+    </li><li>
+        <label for="something:1" class="radio">
+        <input type="radio" name="something" value="b" id="something:1">
+        2</label>
+    </li><li>
+        <label for="something:2" class="radio">
+        <input type="radio" name="something" value="c" id="something:2">
+        3</label>
+    </li>
+</ul>"""
 
 
 class TestRadioButtonTable(WidgetTest):
     widget = twb.RadioButtonTable
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {
+        'options': (('a', '1'), ('b', '2'), ('c', '3')),
+        'id': 'something',
+    }
+    expected = """<table id="something">
+    <tbody>
+    <tr>
+        <td>
+            <label for="something:0" class="radio">
+            <input type="radio" name="something" value="a" id="something:0">
+            1</label>
+        </td>
+    </tr><tr>
+        <td>
+            <label for="something:1" class="radio">
+            <input type="radio" name="something" value="b" id="something:1">
+            2</label>
+        </td>
+    </tr><tr>
+        <td>
+            <label for="something:2" class="radio">
+            <input type="radio" name="something" value="c" id="something:2">
+            3</label>
+        </td>
+    </tr>
+    </tbody>
+</table>"""
 
 
 class TestRowLayout(WidgetTest):
     widget = twb.RowLayout
-    expected = """<TODO>How should this actually work?</TODO>"""
-
-
-class TestSelectionField(WidgetTest):
-    widget = twb.SelectionField
-    expected = """<TODO>How should this actually work?</TODO>"""
-
-
-class TestSeparatedCheckBoxTable(WidgetTest):
-    widget = twb.SeparatedCheckBoxTable
-    expected = """<TODO>How should this actually work?</TODO>"""
-
-
-class TestSeparatedRadioButtonTable(WidgetTest):
-    widget = twb.SeparatedRadioButtonTable
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'children': [twb.TextField(id='field1'),
+                          twb.TextField(id='field2'),
+                          twb.TextField(id='field3')],
+             'repetition': 1,
+             }
+    expected = """
+    <tr class="even">
+    <td>
+        <input name="field1" id="field1" type="text" class="input-medium">
+    </td><td>
+        <input name="field2" id="field2" type="text" class="input-medium">
+    </td><td>
+        <input name="field3" id="field3" type="text" class="input-medium">
+    </td>
+    <td>
+    </td>
+    </tr>"""
 
 
 class TestSingleSelectField(WidgetTest):
+    """ There's actually nothing special about this guy.  """
     widget = twb.SingleSelectField
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {
+        'options': ((1, 'a'), (2, 'b'), (3, 'c')),
+        'id': 'hid',
+        'validator': twc.IntValidator(),
+    }
+    expected = """<select id="hid" name="hid">
+                        <option></option>
+                        <option value="1">a</option>
+                        <option value="2">b</option>
+                        <option value="3">c</option>
+                  </select>"""
 
 
 class TestSpacer(WidgetTest):
@@ -371,17 +650,104 @@ class TestSpacer(WidgetTest):
 
 class TestTableForm(WidgetTest):
     widget = twb.TableForm
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'field1': twb.TextField(id='field1'),
+             'field2': twb.TextField(id='field2'),
+             'field3': twb.TextField(id='field3'),
+             }
+    expected = """<form method="post" enctype="multipart/form-data">
+     <span class="error"></span>
+    <table>
+    <tr class="odd" id="field1:container">
+        <th>Field1</th>
+        <td>
+            <input name="field1" id="field1" type="text" class="input-medium">
+            <span id="field1:error"></span>
+        </td>
+    </tr><tr class="even" id="field2:container">
+        <th>Field2</th>
+        <td>
+            <input name="field2" id="field2" type="text" class="input-medium">
+            <span id="field2:error"></span>
+        </td>
+    </tr><tr class="odd" id="field3:container">
+        <th>Field3</th>
+        <td>
+            <input name="field3" id="field3" type="text" class="input-medium">
+            <span id="field3:error"></span>
+        </td>
+    </tr>
+    <tr class="error"><td colspan="2">
+        <span id=":error"></span>
+    </td></tr>
+</table>
+    <input type="submit" id="submit" value="Save" class="btn btn-primary">
+</form>"""
 
 
-class TestTableFieldSet(WidgetTest):
+class TestTableFieldset(WidgetTest):
     widget = twb.TableFieldSet
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'field1': twb.TextField(id='field1'),
+             'field2': twb.TextField(id='field2'),
+             'field3': twb.TextField(id='field3'),
+             }
+    expected = """<fieldset>
+    <legend></legend>
+    <table>
+    <tr class="odd" id="field1:container">
+        <th>Field1</th>
+        <td>
+            <input name="field1" id="field1" type="text" class="input-medium">
+            <span id="field1:error"></span>
+        </td>
+    </tr><tr class="even" id="field2:container">
+        <th>Field2</th>
+        <td>
+            <input name="field2" id="field2" type="text" class="input-medium">
+            <span id="field2:error"></span>
+        </td>
+    </tr><tr class="odd" id="field3:container">
+        <th>Field3</th>
+        <td>
+            <input name="field3" id="field3" type="text" class="input-medium">
+            <span id="field3:error"></span>
+        </td>
+    </tr>
+    <tr class="error"><td colspan="2">
+        <span id=":error"></span>
+    </td></tr>
+</table>
+</fieldset>"""
 
 
 class TestTableLayout(WidgetTest):
     widget = twb.TableLayout
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'children': [twb.TextField(id='field1'),
+                          twb.TextField(id='field2'),
+                          twb.TextField(id='field3')]}
+    expected = """<table>
+    <tr class="odd" id="field1:container">
+        <th>Field1</th>
+        <td>
+            <input name="field1" id="field1" type="text" class="input-medium">
+            <span id="field1:error"></span>
+        </td>
+    </tr><tr class="even" id="field2:container">
+        <th>Field2</th>
+        <td>
+            <input name="field2" id="field2" type="text" class="input-medium">
+            <span id="field2:error"></span>
+        </td>
+    </tr><tr class="odd" id="field3:container">
+        <th>Field3</th>
+        <td>
+            <input name="field3" id="field3" type="text" class="input-medium">
+            <span id="field3:error"></span>
+        </td>
+    </tr>
+    <tr class="error"><td colspan="2">
+        <span id=":error"></span>
+    </td></tr>
+</table>"""
 
 
 class TestVerticalCheckBoxTable(WidgetTest):
