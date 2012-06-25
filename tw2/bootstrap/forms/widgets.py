@@ -394,7 +394,7 @@ class ListFieldSet(BootstrapMixin, twf.ListFieldSet):
     pass
 
 
-class ListForm(BootstrapMixin, twf.ListForm):
+class ListForm(BootstrapForm, twf.ListForm):
     pass
 
 

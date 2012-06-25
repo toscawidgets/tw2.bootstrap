@@ -313,7 +313,8 @@ class TestFormPage(WidgetTest):
         twb.TextField(id='field1'),
         twb.TextField(id='field2'),
         twb.TextField(id='field3'),]),
-        'title':'some title'
+        'title':'some title',
+        'id': 'mytestwidget',
     }
     expected = """<html>
 <head><title>some title</title></head>
@@ -343,7 +344,7 @@ class TestFormPage(WidgetTest):
         <span id="mytestwidget:error"></span>
     </td></tr>
 </table>
-    <input type="submit" id="submit" value="Save">
+    <input type="submit" id="submit" value="Save" class="btn btn-primary"/>
 </form></body>
 </html>"""
 
@@ -437,7 +438,7 @@ class TestListForm(WidgetTest):
     </li>
     <li class="error"><span id=":error" class="error"></span></li>
 </ul>
-    <input type="submit" id="submit" value="Save"/>
+    <input type="submit" id="submit" value="Save" class="btn btn-primary">
 </form>"""
 
 
