@@ -50,6 +50,8 @@ def test_every_widget_covered():
         twb.SeparatedCheckBoxTable,
         twb.PostlabeledCheckBox,
         twb.PostlabeledPartialRadioButton,
+        twb.FieldSet,
+        twb.DataGrid,
 
         # This one is an abandoned child...
         # Not to be confused with MultipleSelectField.
@@ -284,27 +286,86 @@ class TestCalendarDateTimePicker(WidgetTest):
 
 class TestCheckBoxList(WidgetTest):
     widget = twb.CheckBoxList
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {
+        'css_class': 'something',
+        'options': (('a','1'), ('b', '2'), ('c', '3')),
+        'id': 'something',
+    }
+    expected = """<ul class="something" id="something">
+    <li>
+        <label class="checkbox" for="something:0">
+        <input type="checkbox" name="something" value="a" id="something:0">
+        1</label>
+    </li><li>
+        <label class="checkbox" for="something:1">
+        <input type="checkbox" name="something" value="b" id="something:1">
+        2</label>
+    </li><li>
+        <label class="checkbox" for="something:2">
+        <input type="checkbox" name="something" value="c" id="something:2">
+        3</label>
+    </li>
+</ul>
+"""
 
 
 class TestCheckBoxTable(WidgetTest):
     widget = twb.CheckBoxTable
-    expected = """<TODO>How should this actually work?</TODO>"""
-
-
-class TestDataGrid(WidgetTest):
-    widget = twb.DataGrid
-    expected = """<TODO>How should this actually work?</TODO>"""
-
-
-class TestFieldSet(WidgetTest):
-    widget = twb.FieldSet
-    expected = """<TODO>How should this actually work?</TODO>"""
-
+    attrs = {
+        'css_class': 'something',
+        'options': (('a','1'), ('b', '2'), ('c', '3')),
+        'id': 'something',
+    }
+    expected = """
+<table class="something" id="something">
+    <tbody>
+    <tr>
+        <td>
+            <label class="checkbox" for="something:0">
+            <input type="checkbox" name="something"
+            value="a" id="something:0">
+            1</label>
+        </td>
+    </tr><tr>
+        <td>
+            <label class="checkbox" for="something:1">
+            <input type="checkbox" name="something"
+            value="b" id="something:1">
+            2</label>
+        </td>
+    </tr><tr>
+        <td>
+            <label class="checkbox" for="something:2">
+            <input type="checkbox" name="something"
+            value="c" id="something:2">
+            3</label>
+        </td>
+    </tr>
+    </tbody>
+</table>"""
 
 class TestForm(WidgetTest):
     widget = twb.Form
-    expected = """<TODO>How should this actually work?</TODO>"""
+    attrs = {'child': twb.TableLayout(field1=twb.TextField(id='field1')),
+        'buttons': [twb.SubmitButton, twb.ResetButton()]}
+    expected = """
+    <form enctype="multipart/form-data" method="post">
+         <span class="error"></span>
+        <table >
+        <tr class="odd"  id="field1:container">
+            <th>Field1</th>
+            <td >
+                <input name="field1" type="text" id="field1" class="input-medium"/>
+                <span id="field1:error"></span>
+            </td>
+        </tr>
+        <tr class="error"><td colspan="2">
+            <span id=":error"></span>
+        </td></tr>
+    </table>
+            <input type="submit" class="btn btn-primary"/>
+            <input type="reset" class="btn"/>
+    </form>"""
 
 
 class TestFormPage(WidgetTest):

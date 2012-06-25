@@ -355,11 +355,11 @@ class CalendarDateTimePicker(BootstrapMixin, twc.CompoundWidget):
 
 
 class CheckBoxList(BootstrapMixin, twf.CheckBoxList):
-    pass
+    template = "tw2.bootstrap.forms.templates.selection_list"
 
 
 class CheckBoxTable(BootstrapMixin, twf.CheckBoxTable):
-    pass
+    template = "tw2.bootstrap.forms.templates.selection_table"
 
 
 class DataGrid(BootstrapMixin, twf.DataGrid):
