@@ -229,13 +229,17 @@ class HorizontalLayout(BootstrapMixin, twf.widgets.BaseLayout):
     template = "mako:tw2.bootstrap.forms.templates.horizontal_layout"
 
 
-class HorizontalForm(BootstrapMixin, twf.Form):
+class BootstrapForm(BootstrapMixin, twf.Form):
+    """ Base class for bootstrap forms. """
+    children = twc.Required
+    submit = SubmitButton(id='submit', value='Save')
+
+
+class HorizontalForm(BootstrapForm):
     """Equivalent to a Form containing a HorizontalLayout."""
     template = "mako:tw2.bootstrap.forms.templates.horizontal_form"
     css_class = "form-horizontal"
     child = twc.Variable(default=HorizontalLayout)
-    children = twc.Required
-    submit = SubmitButton(id='submit', value='Save')
 
     legend = twc.Param('Legend text for the form.', '')
 
@@ -451,7 +455,7 @@ class TableFieldSet(BootstrapMixin, twf.TableFieldSet):
     pass
 
 
-class TableForm(BootstrapMixin, twf.TableForm):
+class TableForm(BootstrapForm, twf.TableForm):
     pass
 
 
