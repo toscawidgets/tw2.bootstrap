@@ -258,9 +258,12 @@ class TestCalendarDatePicker(WidgetTest):
     widget = twb.CalendarDatePicker
     expected = """
     <input name="bootstrap-test" type="text" id="bootstrap-test"
-           class="input-medium" value="{today}" data-date="{today}"
+           class="input-medium" value="%s" data-date="%s"
            data-date-format="mm/dd/yyyy" />
-    """.format(today=datetime.datetime.now().strftime("%m/%d/%Y"))
+    """ % (
+        datetime.datetime.now().strftime("%m/%d/%Y"),
+        datetime.datetime.now().strftime("%m/%d/%Y"),
+    )
 
 
 class TestCalendarTimePicker(WidgetTest):
@@ -276,12 +279,15 @@ class TestCalendarDateTimePicker(WidgetTest):
     expected = """
     <div id="bootstrap-test">
        <input name="bootstrap-test:date" type="text" id="bootstrap-test:date"
-              class="input-medium" value="{today}" data-date="{today}"
+              class="input-medium" value="%s" data-date="%s"
               data-date-format="mm/dd/yyyy" />
        <input name="bootstrap-test:time" type="text"
               id="bootstrap-test:time" class="input-medium"/>
     </div>
-    """.format(today=datetime.datetime.now().strftime("%m/%d/%Y"))
+    """ % (
+        datetime.datetime.now().strftime("%m/%d/%Y"),
+        datetime.datetime.now().strftime("%m/%d/%Y"),
+    )
 
 
 class TestCheckBoxList(WidgetTest):
