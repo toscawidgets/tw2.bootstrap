@@ -337,7 +337,7 @@ class TestCheckBoxList(WidgetTest):
     widget = twb.CheckBoxList
     attrs = {
         'css_class': 'something',
-        'options': (('a','1'), ('b', '2'), ('c', '3')),
+        'options': (('a', '1'), ('b', '2'), ('c', '3')),
         'id': 'something',
     }
     expected = """<ul class="something" id="something">
@@ -362,7 +362,7 @@ class TestCheckBoxTable(WidgetTest):
     widget = twb.CheckBoxTable
     attrs = {
         'css_class': 'something',
-        'options': (('a','1'), ('b', '2'), ('c', '3')),
+        'options': (('a', '1'), ('b', '2'), ('c', '3')),
         'id': 'something',
     }
     expected = """
@@ -393,6 +393,7 @@ class TestCheckBoxTable(WidgetTest):
     </tbody>
 </table>"""
 
+
 class TestForm(WidgetTest):
     widget = twb.Form
     attrs = {'child': twb.TableLayout(field1=twb.TextField(id='field1')),
@@ -419,11 +420,12 @@ class TestForm(WidgetTest):
 
 class TestFormPage(WidgetTest):
     widget = twb.FormPage
-    attrs = {'child':twb.TableForm(children=[
+    attrs = {'child': twb.TableForm(children=[
         twb.TextField(id='field1'),
         twb.TextField(id='field2'),
-        twb.TextField(id='field3'),]),
-        'title':'some title',
+        twb.TextField(id='field3'),
+        ]),
+        'title': 'some title',
         'id': 'mytestwidget',
     }
     expected = """<html>
