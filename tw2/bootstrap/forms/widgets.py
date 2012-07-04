@@ -33,6 +33,8 @@ __all__ = [
     'ResetButton',
     'HorizontalLayout',
     'HorizontalForm',
+    'InlineLayout',
+    'InlineForm',
 
     'CalendarDatePicker',
     'CalendarTimePicker',
@@ -240,6 +242,23 @@ class HorizontalForm(BootstrapForm):
     template = "mako:tw2.bootstrap.forms.templates.horizontal_form"
     css_class = "form-horizontal"
     child = twc.Variable(default=HorizontalLayout)
+
+    legend = twc.Param('Legend text for the form.', '')
+
+
+class InlineLayout(BootstrapMixin, twf.widgets.BaseLayout):
+    __doc__ = """
+    Finessed vertical alignment and spacing of form controls.
+    """ + twf.widgets.BaseLayout.__doc__
+    template = "mako:tw2.bootstrap.forms.templates.inline_layout"
+
+
+class InlineForm(BootstrapMixin, twf.Form):
+    """Equivalent to a Form containing an InlineLayout."""
+    css_class = "form-inline"
+    child = twc.Variable(default=InlineLayout)
+    children = twc.Required
+    submit = SubmitButton(id='submit', value='Save')
 
     legend = twc.Param('Legend text for the form.', '')
 
