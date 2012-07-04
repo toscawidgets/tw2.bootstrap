@@ -254,6 +254,49 @@ class TestHorizontalForm(WidgetTest):
     """
 
 
+class TestInlineLayout(WidgetTest):
+    widget = twb.InlineLayout
+    attrs = {
+        'id': 'bootstrap-test',
+        'children': [
+            twb.ResetButton(id='foo'),
+        ],
+    }
+
+    expected = """
+    <span class="">
+      <label for="bootstrap-test:foo">Foo</label>
+        <input name="bootstrap-test:foo" type="reset" class="btn" id="bootstrap-test:foo"/>
+    </span>
+    """
+
+
+class TestInlineForm(WidgetTest):
+    widget = twb.InlineForm
+    attrs = {
+        'id': 'bootstrap-test',
+        'children': [
+            twb.ResetButton(id='foo'),
+        ],
+    }
+
+    expected = """
+    <form id="bootstrap-test:form"
+          enctype="multipart/form-data"
+          method="post"
+          class="form-inline">
+      <span class="error"></span>
+
+      <span class="">
+        <label for="bootstrap-test:foo">Foo</label>
+          <input name="bootstrap-test:foo" type="reset" class="btn" id="bootstrap-test:foo"/>
+      </span>
+
+      <input type="submit" class="btn btn-primary" value="Save" id="submit"/>
+    </form>
+    """
+
+
 class TestCalendarDatePicker(WidgetTest):
     widget = twb.CalendarDatePicker
     expected = """
