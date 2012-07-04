@@ -1,3 +1,4 @@
 recursive-include tw2/bootstrap/forms/templates *
 recursive-include tw2/bootstrap/forms/static *
 include README.rst
+include LICENSE.txt

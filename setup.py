@@ -15,6 +15,7 @@ setup(
     author='Moritz Schlarb',
     author_email='mail@moritz-schlarb.de',
     url='http://github.com/toscawidgets/tw2.bootstrap',
+    license='BSD 2-clause',
     install_requires=[
         "tw2.core",
         "tw2.forms",
@@ -63,5 +64,6 @@ setup(
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
+        'License :: OSI Approved :: BSD License',
     ],
 )
