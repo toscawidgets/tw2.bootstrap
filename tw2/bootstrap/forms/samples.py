@@ -9,7 +9,8 @@ See http://toscawidgets.org/documentation/WidgetBrowser for more information
 import tw2.core as twc
 from tw2.forms.samples import DemoChildren
 
-import tw2.bootstrap.widgets as twb
+import tw2.bootstrap.forms.widgets as twb
+import tw2.bootstrap.forms.calendars as twbc
 
 
 class DemoHorizontalForm(twb.HorizontalForm):
@@ -63,13 +64,17 @@ class DemoLinkField(twb.LinkField):
     value = "forms"
 
 
-class DemoCalendarDatePicker(twb.CalendarDatePicker):
+class DemoCalendarDatePicker(twbc.CalendarDatePicker):
     style = 'component'
 
 
-class DemoCalendarTimePicker(twb.CalendarTimePicker):
+class DemoCalendarTimePicker(twbc.CalendarTimePicker):
     style = 'dropdown'
     defaultTime = "9:00 AM"
+
+
+class DemoCalendarDateTimePicker(twbc.CalendarDateTimePicker):
+    pass
 
 
 class DemoVerticalCheckBoxTable(twb.VerticalCheckBoxTable):
