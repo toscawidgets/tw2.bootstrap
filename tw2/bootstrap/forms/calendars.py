@@ -107,10 +107,13 @@ class _DateFmtConverter(object):
         ('hh', '24HOUR'), ('h', '24HOUR'), ('HH', '12HOUR'), ('H', '12HOUR'),
         ('ii', 'MINUTE'), ('i', 'MINUTE'),
         ('ss', 'SECOND'), ('s', 'SECOND'),
+        ('P', 'MERIDIAN'), ('p', 'meridian'),
     ]
     int2js = [(y, x) for (x, y) in js2int]
     py2int = [
-        ('%T', '24HOUR:MINUTE:SECOND'),
+        ('%T', '24HOUR:MINUTE:SECOND'), ('%R', '24HOUR:MINUTE'),
+        ('%r', '12HOUR:MINUTE:SECOND MERIDIAN'),
+        ('%p', 'MERIDIAN'), ('%P', 'meridian'),
         ('%d', 'DAY'),
         ('%m', 'MONTH'),
         ('%Y', '4YEAR'), ('%y', '2YEAR'),
@@ -223,6 +226,8 @@ class CalendarDateTimePicker(TextField, CalendarBase):
     def __init__(self, *args, **kw):
         super(CalendarDateTimePicker, self).__init__(*args, **kw)
         self.format = datefmtconverter.py2js(self.date_format)
+        if 'p' in self.format or 'P' in self.format:
+            self.datetimepicker_args.setdefault('showMeridian', True)
         if not self.validator:
             self.validator = twc.DateTimeValidator(
                 format=self.date_format,
