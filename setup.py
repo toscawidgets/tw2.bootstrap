@@ -12,8 +12,8 @@ setup(
     version='2.0.0',
     description="A drop-in replacement for tw2.forms but with bootstrap!",
     long_description=open('README.rst').read(),
-    author='Moritz Schlarb',
-    author_email='mail@moritz-schlarb.de',
+    author='Moritz Schlarb, Ralph Bean',
+    author_email='moschlar@metalabs.de, rbean@redhat.com',
     url='http://github.com/toscawidgets/tw2.bootstrap',
     license='BSD 2-clause',
     install_requires=[
