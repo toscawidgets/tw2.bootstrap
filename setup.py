@@ -7,6 +7,20 @@ try:
 except:
     pass
 
+tests_require=[
+    'nose',
+    'sieve',
+    'webtest',
+
+    # Required by tw2.core.testbase
+    'formencode',
+
+    # Templating engines
+    'genshi',
+    'mako',
+    'jinja2',
+]
+
 setup(
     name='tw2.bootstrap.forms',
     version='2.0.0',
@@ -30,32 +44,17 @@ setup(
     ],
     zip_safe=False,
     include_package_data=True,
-    test_suite = 'nose.collector',
-    tests_require=[
-        'nose',
-
-        # Required by tw2.core.testbase
-        'formencode',
-        'BeautifulSoup',
-        'strainer',
-        'webtest',
-
-        # Templating engines
-        'genshi',
-        'mako',
-        'jinja2',
-        'kajiki',
-        'genshi',
-    ],
+    test_suite='nose.collector',
+    tests_require=tests_require,
     entry_points="""
         [tw2.widgets]
         # Register your widgets so they can be listed in the WidgetBrowser
         widgets = tw2.bootstrap.forms
     """,
-    keywords = [
+    keywords=[
         'toscawidgets.widgets',
     ],
-    classifiers = [
+    classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
         'Environment :: Web Environment :: ToscaWidgets',

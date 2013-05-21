@@ -3,6 +3,7 @@ Created on 29.05.2012
 
 @author: moschlar
 '''
+import six
 
 
 def replace_all(text, items):
@@ -12,7 +13,7 @@ def replace_all(text, items):
     or a list of (old, new) tuples
     '''
     try:
-        items = items.iteritems()
+        items = six.iteritems(items)
     except:
         pass
     for old, new in items:
