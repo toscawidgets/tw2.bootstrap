@@ -23,7 +23,7 @@ tests_require=[
 
 setup(
     name='tw2.bootstrap.forms',
-    version='2.0.0',
+    version='2.0.1',
     description="A drop-in replacement for tw2.forms but with bootstrap!",
     long_description=open('README.rst').read(),
     author='Moritz Schlarb, Ralph Bean',
