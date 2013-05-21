@@ -6,6 +6,8 @@ import tw2.forms as twf
 import tw2.bootstrap.forms as twb
 
 import datetime
+import six
+from six.moves import filter
 
 
 def test_every_widget_exposed():
@@ -594,7 +596,7 @@ class TestMultipleSelectField(WidgetTest):
                       <option value="b">2</option>
                       <option value="c">3</option>
                   </select>"""
-    validate_params = [[None, {'hid':'b'}, [u'b']]]
+    validate_params = [[None, {'hid':'b'}, [six.u('b')]]]
 
 
 class TestRadioButtonList(WidgetTest):

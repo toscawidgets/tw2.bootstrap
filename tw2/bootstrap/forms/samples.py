@@ -45,7 +45,7 @@ class DemoHorizontalForm(twb.HorizontalForm):
                 label="I am a LabelField",
                 description="A description could go here...",
             ))
-        except twc.ValidationError, e:
+        except twc.ValidationError as e:
             return e.widget.display()
 
 

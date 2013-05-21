@@ -10,10 +10,11 @@
 #
 # All configuration values have a default value; values that are commented out
 # serve to show the default value.
+from __future__ import print_function
 
 import sys, os
 import pkg_resources
-execfile(os.path.join("..", "tw2", "bootstrap", "release.py"))
+exec(compile(open(os.path.join("..", "tw2", "bootstrap", "release.py")).read(), os.path.join("..", "tw2", "bootstrap", "release.py"), 'exec'))
 
 # If your extensions are in another directory, add it here. If the directory
 # is relative to the documentation root, use os.path.abspath to make it
@@ -32,7 +33,7 @@ try:
     from widgetbrowser import sphinx_ext
     extensions.append('widgetbrowser.sphinx_ext')
 except ImportError:
-    print >> sys.stderr, "WidgetBrowser is not available..."
+    print("WidgetBrowser is not available...", file=sys.stderr)
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = []
