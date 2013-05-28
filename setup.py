@@ -34,6 +34,9 @@ setup(
         "tw2.core",
         "tw2.forms",
         "tw2.jquery",
+
+        "six",
+
         ## Add other requirements here
         # "Genshi",
         ],
