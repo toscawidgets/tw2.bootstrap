@@ -7,8 +7,6 @@ import tw2.core as twc
 import tw2.forms as twf
 import tw2.jquery as twj
 
-from datetime import datetime
-from tw2.bootstrap.forms.utils import replace_all
 
 __all__ = [
     'bootstrap_css',
@@ -33,10 +31,9 @@ __all__ = [
     'ResetButton',
     'HorizontalLayout',
     'HorizontalForm',
+    'InlineLayout',
+    'InlineForm',
 
-    'CalendarDatePicker',
-    'CalendarTimePicker',
-    'CalendarDateTimePicker',
     'CheckBoxList',
     'CheckBoxTable',
 
@@ -94,29 +91,6 @@ bootstrap_js = twc.JSLink(
     modname=__name__,
     filename='static/bootstrap/js/bootstrap.js',
     resources=[twj.jquery_js],
-    location='headbottom')
-
-datepicker_img = twc.DirLink(
-    modname=__name__,
-    filename='static/datepicker/img')
-datepicker_css = twc.CSSLink(
-    modname=__name__,
-    filename='static/datepicker/css/datepicker.css',
-    resources=[bootstrap_css, datepicker_img])
-datepicker_js = twc.JSLink(
-    modname=__name__,
-    filename='static/datepicker/js/bootstrap-datepicker.js',
-    resources=[bootstrap_js],
-    location='headbottom')
-
-timepicker_css = twc.CSSLink(
-    modname=__name__,
-    filename='static/timepicker/css/timepicker.css',
-    resources=[bootstrap_css])
-timepicker_js = twc.JSLink(
-    modname=__name__,
-    filename='static/timepicker/js/bootstrap-timepicker.js',
-    resources=[bootstrap_js],
     location='headbottom')
 
 
@@ -244,114 +218,21 @@ class HorizontalForm(BootstrapForm):
     legend = twc.Param('Legend text for the form.', '')
 
 
-class CalendarDatePicker(TextField):
-    resources = TextField.resources + [datepicker_js, datepicker_css]
-    template = "mako:tw2.bootstrap.forms.templates.datepicker"
-
-    style = twc.Param(
-        'Specify the template to use. [field, component]',
-        default='field')
-    format = twc.Param(
-        "the date format, combination of d, dd, m, mm, yy, yyyy.",
-        default="mm/dd/yyyy")
-    date_format = twc.Variable()
-    weekStart = twc.Param(
-        "day of the week start.  0 for Sunday - 6 for Saturday",
-        default=0)
-    default = twc.Param(
-        'Default value (datetime) for the widget.  If set to a function, ' +
-        'it will be called each time before displaying.',
-        default=datetime.now)
-
-    def __init__(self, *args, **kw):
-        super(CalendarDatePicker, self).__init__(*args, **kw)
-        # Convert the bootstrap-datepicker format string to
-        # a python format string...
-        self.date_format = replace_all(self.format, [
-            ('dd', 'DAY'), ('d', 'DAY'),
-            ('mm', 'MONTH'), ('m', 'MONTH'),
-            ('yyyy', '4YEAR'), ('yy', '2YEAR')
-            ])
-        self.date_format = replace_all(self.date_format, [
-            ('DAY', '%d'),
-            ('MONTH', '%m'),
-            ('2YEAR', '%y'), ('4YEAR', '%Y')
-            ])
-        if not self.validator:
-            self.validator = twc.DateValidator(
-            format=self.date_format,
-            )
-
-    def prepare(self):
-        super(CalendarDatePicker, self).prepare()
-        self.add_call(twj.jQuery(self.selector).datepicker(dict(
-            format=self.format,
-            weekStart=self.weekStart,
-        )))
-        if not self.value:
-            if callable(self.default):
-                self.value = self.default()
-            else:
-                self.value = self.default
-        try:
-            self.value = self.value.strftime(self.date_format)
-        except:
-            pass
+class InlineLayout(BootstrapMixin, twf.widgets.BaseLayout):
+    __doc__ = """
+    Finessed vertical alignment and spacing of form controls.
+    """ + twf.widgets.BaseLayout.__doc__
+    template = "mako:tw2.bootstrap.forms.templates.inline_layout"
 
 
-class CalendarTimePicker(TextField):
-    resources = TextField.resources + [timepicker_js, timepicker_css]
+class InlineForm(BootstrapMixin, twf.Form):
+    """Equivalent to a Form containing an InlineLayout."""
+    css_class = "form-inline"
+    child = twc.Variable(default=InlineLayout)
+    children = twc.Required
+    submit = SubmitButton(id='submit', value='Save')
 
-    style = twc.Param(
-        'Specify the template to use. [modal, dropdown]',
-        default='modal')
-    minuteStep = twc.Param(
-        'Specify a step for the minute field.',
-        default=15)
-    defaultTime = twc.Param(
-        'Set the initial time value. '
-        'Setting it to "current" sets it to the current time.',
-        default='current')
-    disableFocus = twc.Param(
-        'Disables the input from focusing. This is useful for touch screen '
-        'devices that display a keyboard on input focus.',
-        default=False)
-
-    def prepare(self):
-        super(CalendarTimePicker, self).prepare()
-        self.add_call(twj.jQuery(self.selector).timepicker(dict(
-            template=self.style,
-            minuteStep=self.minuteStep,
-            defaultTime=self.defaultTime,
-            disableFocus=self.disableFocus
-        )))
-
-
-class CalendarDateTimePicker(BootstrapMixin, twc.CompoundWidget):
-    resources = set(
-        CalendarDatePicker.resources +
-        CalendarTimePicker.resources
-    )
-    date = CalendarDatePicker()
-    time = CalendarTimePicker()
-
-    def _validate(self, value, state=None):
-        """
-        Inner validation method; this is called by validate and should not be
-        called directly. Overriding this method in widgets is discouraged; a
-        custom validator should be coded instead. However, in some
-        circumstances overriding is necessary.
-        """
-        self._validated = True
-        result = ''
-        for field in self.children:
-            child_value = field.validator.to_python(field.value)
-            field.validator.validate_python(child_value, state)
-            result += child_value
-        return result
-
-    def prepare(self):
-        super(CalendarDateTimePicker, self).prepare()
+    legend = twc.Param('Legend text for the form.', '')
 
 
 class CheckBoxList(BootstrapMixin, twf.CheckBoxList):

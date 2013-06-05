@@ -7,18 +7,36 @@ try:
 except:
     pass
 
+tests_require=[
+    'nose',
+    'sieve',
+    'webtest',
+
+    # Required by tw2.core.testbase
+    'formencode',
+
+    # Templating engines
+    'genshi',
+    'mako',
+    'jinja2',
+]
+
 setup(
     name='tw2.bootstrap.forms',
-    version='2.0.0',
+    version='2.2.0',
     description="A drop-in replacement for tw2.forms but with bootstrap!",
     long_description=open('README.rst').read(),
-    author='Moritz Schlarb',
-    author_email='mail@moritz-schlarb.de',
+    author='Moritz Schlarb, Ralph Bean',
+    author_email='moschlar@metalabs.de, rbean@redhat.com',
     url='http://github.com/toscawidgets/tw2.bootstrap',
+    license='BSD 2-clause',
     install_requires=[
         "tw2.core",
         "tw2.forms",
         "tw2.jquery",
+
+        "six",
+
         ## Add other requirements here
         # "Genshi",
         ],
@@ -29,32 +47,17 @@ setup(
     ],
     zip_safe=False,
     include_package_data=True,
-    test_suite = 'nose.collector',
-    tests_require=[
-        'nose',
-
-        # Required by tw2.core.testbase
-        'formencode',
-        'BeautifulSoup',
-        'strainer',
-        'webtest',
-
-        # Templating engines
-        'genshi',
-        'mako',
-        'jinja2',
-        'kajiki',
-        'genshi',
-    ],
+    test_suite='nose.collector',
+    tests_require=tests_require,
     entry_points="""
         [tw2.widgets]
         # Register your widgets so they can be listed in the WidgetBrowser
         widgets = tw2.bootstrap.forms
     """,
-    keywords = [
+    keywords=[
         'toscawidgets.widgets',
     ],
-    classifiers = [
+    classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
         'Environment :: Web Environment :: ToscaWidgets',
@@ -63,5 +66,6 @@ setup(
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
+        'License :: OSI Approved :: BSD License',
     ],
 )

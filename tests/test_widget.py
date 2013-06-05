@@ -6,6 +6,8 @@ import tw2.forms as twf
 import tw2.bootstrap.forms as twb
 
 import datetime
+import six
+from six.moves import filter
 
 
 def test_every_widget_exposed():
@@ -254,6 +256,49 @@ class TestHorizontalForm(WidgetTest):
     """
 
 
+class TestInlineLayout(WidgetTest):
+    widget = twb.InlineLayout
+    attrs = {
+        'id': 'bootstrap-test',
+        'children': [
+            twb.ResetButton(id='foo'),
+        ],
+    }
+
+    expected = """
+    <span class="">
+      <label for="bootstrap-test:foo">Foo</label>
+        <input name="bootstrap-test:foo" type="reset" class="btn" id="bootstrap-test:foo"/>
+    </span>
+    """
+
+
+class TestInlineForm(WidgetTest):
+    widget = twb.InlineForm
+    attrs = {
+        'id': 'bootstrap-test',
+        'children': [
+            twb.ResetButton(id='foo'),
+        ],
+    }
+
+    expected = """
+    <form id="bootstrap-test:form"
+          enctype="multipart/form-data"
+          method="post"
+          class="form-inline">
+      <span class="error"></span>
+
+      <span class="">
+        <label for="bootstrap-test:foo">Foo</label>
+          <input name="bootstrap-test:foo" type="reset" class="btn" id="bootstrap-test:foo"/>
+      </span>
+
+      <input type="submit" class="btn btn-primary" value="Save" id="submit"/>
+    </form>
+    """
+
+
 class TestCalendarDatePicker(WidgetTest):
     widget = twb.CalendarDatePicker
     expected = """
@@ -294,7 +339,7 @@ class TestCheckBoxList(WidgetTest):
     widget = twb.CheckBoxList
     attrs = {
         'css_class': 'something',
-        'options': (('a','1'), ('b', '2'), ('c', '3')),
+        'options': (('a', '1'), ('b', '2'), ('c', '3')),
         'id': 'something',
     }
     expected = """<ul class="something" id="something">
@@ -319,7 +364,7 @@ class TestCheckBoxTable(WidgetTest):
     widget = twb.CheckBoxTable
     attrs = {
         'css_class': 'something',
-        'options': (('a','1'), ('b', '2'), ('c', '3')),
+        'options': (('a', '1'), ('b', '2'), ('c', '3')),
         'id': 'something',
     }
     expected = """
@@ -350,6 +395,7 @@ class TestCheckBoxTable(WidgetTest):
     </tbody>
 </table>"""
 
+
 class TestForm(WidgetTest):
     widget = twb.Form
     attrs = {'child': twb.TableLayout(field1=twb.TextField(id='field1')),
@@ -376,11 +422,12 @@ class TestForm(WidgetTest):
 
 class TestFormPage(WidgetTest):
     widget = twb.FormPage
-    attrs = {'child':twb.TableForm(children=[
+    attrs = {'child': twb.TableForm(children=[
         twb.TextField(id='field1'),
         twb.TextField(id='field2'),
-        twb.TextField(id='field3'),]),
-        'title':'some title',
+        twb.TextField(id='field3'),
+        ]),
+        'title': 'some title',
         'id': 'mytestwidget',
     }
     expected = """<html>
@@ -549,7 +596,7 @@ class TestMultipleSelectField(WidgetTest):
                       <option value="b">2</option>
                       <option value="c">3</option>
                   </select>"""
-    validate_params = [[None, {'hid':'b'}, [u'b']]]
+    validate_params = [[None, {'hid':'b'}, [six.u('b')]]]
 
 
 class TestRadioButtonList(WidgetTest):
