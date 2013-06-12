@@ -17,6 +17,9 @@ try:
 except ImportError:
     CalendarBase = object
 
+# TODO: This is shitty if there are bad directives in these format strings...
+# see http://bugs.python.org/issue6641
+
 # Try to get sane representations for the date formats
 try:
     import locale
@@ -100,6 +103,7 @@ class _DateFmtConverter(object):
     Uses an unambigiuous internal syntax as an intermediate conversion
     step.
     '''
+    # TODO: Regexp this?
     js2int = [
         ('dd', 'DAY'), ('d', 'DAY'),
         ('mm', 'MONTH'), ('m', 'MONTH'),
