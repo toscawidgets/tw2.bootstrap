@@ -7,7 +7,7 @@ try:
 except:
     pass
 
-tests_require=[
+tests_require = [
     'nose',
     'sieve',
     'webtest',
@@ -26,9 +26,10 @@ setup(
     version='2.2.0',
     description="A drop-in replacement for tw2.forms but with bootstrap!",
     long_description=open('README.rst').read(),
-    author='Moritz Schlarb, Ralph Bean',
-    author_email='moschlar@metalabs.de, rbean@redhat.com',
-    url='http://github.com/toscawidgets/tw2.bootstrap',
+    author='Moritz Schlarb, Ralph Bean & contributors',
+    author_email='toscawidgets-discuss@googlegroups.com',
+    url="http://toscawidgets.org/",
+    download_url="https://pypi.python.org/pypi/tw2.bootstrap.forms/",
     license='BSD 2-clause',
     install_requires=[
         "tw2.core",
