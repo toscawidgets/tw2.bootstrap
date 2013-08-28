@@ -10,7 +10,7 @@
             ${desc}</label>
         </td>
        % endfor
-       % for j in xrange(w.cols - len(row)):
+       % for j in range(w.cols - len(row)):
         <td/>
        % endfor
     </tr>
