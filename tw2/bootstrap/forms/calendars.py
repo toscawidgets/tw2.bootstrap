@@ -107,7 +107,7 @@ class _DateFmtConverter(object):
     js2int = [
         ('dd', 'DAY'), ('d', 'DAY'),
         ('mm', 'MONTH'), ('m', 'MONTH'),
-        ('yyyy', '4YEAR'), ('yy', '2YEAR'),
+        ('yy', '2YEAR'), ('yyyy', '4YEAR'),
         ('hh', '24HOUR'), ('h', '24HOUR'), ('HH', '12HOUR'), ('H', '12HOUR'),
         ('ii', 'MINUTE'), ('i', 'MINUTE'),
         ('ss', 'SECOND'), ('s', 'SECOND'),
@@ -124,8 +124,8 @@ class _DateFmtConverter(object):
         ('%H', '24HOUR'), ('%I', '12HOUR'),
         ('%M', 'MINUTE'),
         ('%S', 'SECOND'),
-        ('%a', ''), ('%A', ''),
-        ('%b', ''), ('%B', ''),
+#         ('%a', ''), ('%A', ''),
+#         ('%b', ''), ('%B', ''),
     ]
     int2py = [(y, x) for (x, y) in py2int]
 
@@ -149,10 +149,12 @@ class CalendarDatePicker(TextField, CalendarBase):
     style = twc.Param(
         'Specify the template to use. [field, component]',
         default='field')
-    format = twc.Param(
-        "the date format, combination of d, dd, m, mm, yy, yyyy.",
-        default=D_FMT)
-    date_format = twc.Variable()
+#     format = twc.Param(
+#         "the date format, combination of d, dd, m, mm, yy, yyyy.",
+#         default=D_FMT)
+#     date_format = twc.Variable()
+    date_format = twc.Param(default=D_FMT)
+    format = twc.Variable()
     weekStart = twc.Param(
         "day of the week start.  0 for Sunday - 6 for Saturday",
         default=0)
@@ -163,7 +165,7 @@ class CalendarDatePicker(TextField, CalendarBase):
 
     def __init__(self, *args, **kw):
         super(CalendarDatePicker, self).__init__(*args, **kw)
-        self.date_format = datefmtconverter.js2py(self.format)
+        self.format = datefmtconverter.py2js(self.date_format)
         if not self.validator:
             self.validator = twc.DateValidator(
             format=self.date_format,
@@ -227,6 +229,11 @@ class CalendarDateTimePicker(TextField, CalendarBase):
 
     datetimepicker_args = twc.Param(default=dict())
 
+    default = twc.Param(
+        'Default value (datetime) for the widget.  If set to a function, ' +
+        'it will be called each time before displaying.',
+        default=datetime.now)
+
     def __init__(self, *args, **kw):
         super(CalendarDateTimePicker, self).__init__(*args, **kw)
         self.format = datefmtconverter.py2js(self.date_format)
@@ -240,11 +247,17 @@ class CalendarDateTimePicker(TextField, CalendarBase):
 
     def prepare(self):
         super(CalendarDateTimePicker, self).prepare()
-        self.format = datefmtconverter.py2js(self.date_format)
         self.add_call(twj.jQuery(self.selector).datetimepicker(dict(
             format=self.format,
             language=self.language,
             **self.datetimepicker_args
         )))
-        if 'id' in self.attrs:
-            del self.attrs['id']
+        if not self.value:
+            if callable(self.default):
+                self.value = self.default()
+            else:
+                self.value = self.default
+        try:
+            self.value = unicode(self.value.strftime(self.date_format))
+        except:
+            pass

@@ -140,7 +140,8 @@ class TestFileField(WidgetTest):
     <input name="bootstrap-test"
            type="file"
            class="input-file"
-           id="bootstrap-test"/>
+           id="bootstrap-test"
+           value="" />
    """
 
 
@@ -301,14 +302,16 @@ class TestInlineForm(WidgetTest):
 
 class TestCalendarDatePicker(WidgetTest):
     widget = twb.CalendarDatePicker
+    id = 'bootstrap-test'
+    value = datetime.datetime.now()
+    date_format = '%m/%d/%Y'
+    format = 'mm/dd/yyyy'
+    attrs = dict(id=id, value=value, date_format=date_format)
     expected = """
-    <input name="bootstrap-test" type="text" id="bootstrap-test"
-           class="input-medium" value="%s" data-date="%s"
-           data-date-format="mm/dd/yyyy" />
-    """ % (
-        datetime.datetime.now().strftime("%m/%d/%Y"),
-        datetime.datetime.now().strftime("%m/%d/%Y"),
-    )
+    <input name="%(id)s" type="text" id="%(id)s"
+           class="input-medium" value="%(value)s" data-date="%(value)s"
+           data-date-format="%(format)s" />
+    """ % dict(id=id, value=value.strftime(date_format), format=format)
 
 
 class TestCalendarTimePicker(WidgetTest):
@@ -321,18 +324,19 @@ class TestCalendarTimePicker(WidgetTest):
 
 class TestCalendarDateTimePicker(WidgetTest):
     widget = twb.CalendarDateTimePicker
+    id = 'bootstrap-test'
+    value = datetime.datetime.now()
+    date_format = '%m/%d/%Y %H:%M:%S'
+    format = 'mm/dd/yyyy hh:ii:ss'
+    attrs = dict(id=id, value=value, date_format=date_format)
     expected = """
-    <div id="bootstrap-test">
-       <input name="bootstrap-test:date" type="text" id="bootstrap-test:date"
-              class="input-medium" value="%s" data-date="%s"
-              data-date-format="mm/dd/yyyy" />
-       <input name="bootstrap-test:time" type="text"
-              id="bootstrap-test:time" class="input-medium"/>
+    <div id="%(id)s" class="input-append date">
+        <input name="%(id)s" type="text" class="input-medium"
+            value="%(value)s" data-date="%(value)s" data-date-format="%(format)s" />
+        <span class="add-on"><i class="icon-remove"></i></span>
+        <span class="add-on"><i class="icon-calendar"></i></span>
     </div>
-    """ % (
-        datetime.datetime.now().strftime("%m/%d/%Y"),
-        datetime.datetime.now().strftime("%m/%d/%Y"),
-    )
+    """ % dict(id=id, value=value.strftime(date_format), format=format)
 
 
 class TestCheckBoxList(WidgetTest):
@@ -400,24 +404,22 @@ class TestForm(WidgetTest):
     widget = twb.Form
     attrs = {'child': twb.TableLayout(field1=twb.TextField(id='field1')),
         'buttons': [twb.SubmitButton, twb.ResetButton()]}
-    expected = """
-    <form enctype="multipart/form-data" method="post">
-         <span class="error"></span>
-        <table >
-        <tr class="odd"  id="field1:container">
-            <th>Field1</th>
-            <td >
+    expected = """<form enctype="multipart/form-data" method="post">
+        <span class="error"></span>
+        <table>
+            <tr class="odd" id="field1:container">
+                <th><label for="field1">Field1</label></th>
+                <td >
                 <input name="field1" type="text" id="field1" class="input-medium"/>
-                <span id="field1:error"></span>
-            </td>
-        </tr>
-        <tr class="error"><td colspan="2">
-            <span id=":error"></span>
-        </td></tr>
-    </table>
+                    <span id="field1:error"></span>
+                </td>
+            </tr><tr class="error"><td colspan="2">
+                <span id=":error"></span>
+            </td></tr>
+        </table>
             <input type="submit" class="btn btn-primary"/>
             <input type="reset" class="btn"/>
-    </form>"""
+        </form>"""
 
 
 class TestFormPage(WidgetTest):
@@ -507,17 +509,17 @@ class TestListFieldset(WidgetTest):
     <legend></legend>
     <ul >
     <li class="odd">
-     <label>Field1</label>
+     <label for="field1">Field1</label>
         <input name="field1" id="field1" type="text" class="input-medium"/>
         <span id="field1:error" class="error"></span>
     </li>
     <li class="even">
-     <label>Field2</label>
+     <label for="field2">Field2</label>
         <input name="field2" id="field2" type="text" class="input-medium"/>
         <span id="field2:error" class="error"></span>
     </li>
     <li class="odd">
-     <label>Field3</label>
+     <label for="field3">Field3</label>
         <input name="field3" id="field3" type="text" class="input-medium"/>
         <span id="field3:error" class="error"></span>
     </li>
@@ -536,17 +538,17 @@ class TestListForm(WidgetTest):
      <span class="error"></span>
     <ul >
     <li class="odd">
-     <label>Field1</label>
+     <label for="field1">Field1</label>
         <input name="field1" id="field1" type="text" class="input-medium"/>
         <span id="field1:error" class="error"></span>
     </li>
     <li class="even">
-     <label>Field2</label>
+     <label for="field2">Field2</label>
         <input name="field2" id="field2" type="text" class="input-medium"/>
         <span id="field2:error" class="error"></span>
     </li>
     <li class="odd">
-     <label>Field3</label>
+     <label for="field3">Field3</label>
         <input name="field3" id="field3" type="text" class="input-medium"/>
         <span id="field3:error" class="error"></span>
     </li>
@@ -566,15 +568,15 @@ class TestListLayout(WidgetTest):
     expected = """\
 <ul>
     <li class="odd">
-        <label>Field1</label>
+     <label for="field1">Field1</label>
         <input name="field1" id="field1" type="text" class="input-medium">
         <span id="field1:error" class="error"></span>
     </li><li class="even">
-        <label>Field2</label>
+     <label for="field2">Field2</label>
         <input name="field2" id="field2" type="text" class="input-medium">
         <span id="field2:error" class="error"></span>
     </li><li class="odd">
-        <label>Field3</label>
+     <label for="field3">Field3</label>
         <input name="field3" id="field3" type="text" class="input-medium">
         <span id="field3:error" class="error"></span>
     </li>
@@ -705,19 +707,19 @@ class TestTableForm(WidgetTest):
      <span class="error"></span>
     <table>
     <tr class="odd" id="field1:container">
-        <th>Field1</th>
+        <th><label for="field1">Field1</label></th>
         <td>
             <input name="field1" id="field1" type="text" class="input-medium">
             <span id="field1:error"></span>
         </td>
     </tr><tr class="even" id="field2:container">
-        <th>Field2</th>
+        <th><label for="field2">Field2</label></th>
         <td>
             <input name="field2" id="field2" type="text" class="input-medium">
             <span id="field2:error"></span>
         </td>
     </tr><tr class="odd" id="field3:container">
-        <th>Field3</th>
+        <th><label for="field3">Field3</label></th>
         <td>
             <input name="field3" id="field3" type="text" class="input-medium">
             <span id="field3:error"></span>
@@ -741,19 +743,19 @@ class TestTableFieldset(WidgetTest):
     <legend></legend>
     <table>
     <tr class="odd" id="field1:container">
-        <th>Field1</th>
+        <th><label for="field1">Field1</label></th>
         <td>
             <input name="field1" id="field1" type="text" class="input-medium">
             <span id="field1:error"></span>
         </td>
     </tr><tr class="even" id="field2:container">
-        <th>Field2</th>
+        <th><label for="field2">Field2</label></th>
         <td>
             <input name="field2" id="field2" type="text" class="input-medium">
             <span id="field2:error"></span>
         </td>
     </tr><tr class="odd" id="field3:container">
-        <th>Field3</th>
+        <th><label for="field3">Field3</label></th>
         <td>
             <input name="field3" id="field3" type="text" class="input-medium">
             <span id="field3:error"></span>
@@ -773,19 +775,19 @@ class TestTableLayout(WidgetTest):
                           twb.TextField(id='field3')]}
     expected = """<table>
     <tr class="odd" id="field1:container">
-        <th>Field1</th>
+        <th><label for="field1">Field1</label></th>
         <td>
             <input name="field1" id="field1" type="text" class="input-medium">
             <span id="field1:error"></span>
         </td>
     </tr><tr class="even" id="field2:container">
-        <th>Field2</th>
+        <th><label for="field2">Field2</label></th>
         <td>
             <input name="field2" id="field2" type="text" class="input-medium">
             <span id="field2:error"></span>
         </td>
     </tr><tr class="odd" id="field3:container">
-        <th>Field3</th>
+        <th><label for="field3">Field3</label></th>
         <td>
             <input name="field3" id="field3" type="text" class="input-medium">
             <span id="field3:error"></span>
