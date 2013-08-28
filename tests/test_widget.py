@@ -430,34 +430,33 @@ class TestFormPage(WidgetTest):
         twb.TextField(id='field3'),
         ]),
         'title': 'some title',
-        'id': 'mytestwidget',
     }
     expected = """<html>
 <head><title>some title</title></head>
-<body id="mytestwidget:page"><h1>some title</h1><form method="post" id="mytestwidget:form" enctype="multipart/form-data">
+<body id="formpage:page"><h1>some title</h1><form method="post" id="formpage:form" enctype="multipart/form-data">
      <span class="error"></span>
-    <table id="mytestwidget">
-    <tr class="odd" id="mytestwidget:field1:container">
-        <th>Field1</th>
+    <table id="formpage">
+    <tr class="odd" id="formpage:field1:container">
+        <th><label for="field1">Field1</label></th>
         <td>
-            <input name="mytestwidget:field1" id="mytestwidget:field1" type="text" class="input-medium">
-            <span id="mytestwidget:field1:error"></span>
+            <input name="formpage:field1" id="formpage:field1" type="text" class="input-medium">
+            <span id="formpage:field1:error"></span>
         </td>
-    </tr><tr class="even" id="mytestwidget:field2:container">
-        <th>Field2</th>
+    </tr><tr class="even" id="formpage:field2:container">
+        <th><label for="field2">Field2</label></th>
         <td>
-            <input name="mytestwidget:field2" id="mytestwidget:field2" type="text" class="input-medium">
-            <span id="mytestwidget:field2:error"></span>
+            <input name="formpage:field2" id="formpage:field2" type="text" class="input-medium">
+            <span id="formpage:field2:error"></span>
         </td>
-    </tr><tr class="odd" id="mytestwidget:field3:container">
-        <th>Field3</th>
+    </tr><tr class="odd" id="formpage:field3:container">
+        <th><label for="field3">Field3</label></th>
         <td>
-            <input name="mytestwidget:field3" id="mytestwidget:field3" type="text" class="input-medium">
-            <span id="mytestwidget:field3:error"></span>
+            <input name="formpage:field3" id="formpage:field3" type="text" class="input-medium">
+            <span id="formpage:field3:error"></span>
         </td>
     </tr>
     <tr class="error"><td colspan="2">
-        <span id="mytestwidget:error"></span>
+        <span id="formpage:error"></span>
     </td></tr>
 </table>
     <input type="submit" id="submit" value="Save" class="btn btn-primary"/>
