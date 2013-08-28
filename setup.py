@@ -1,3 +1,5 @@
+import sys
+
 from setuptools import setup, find_packages
 
 # Little hack to make 'python setup.py test' work on py2.7
@@ -7,19 +9,24 @@ try:
 except:
     pass
 
+# Requirements to install buffet plugins and engines
+_extra_genshi = ["Genshi >= 0.3.5"]
+_extra_mako = ["Mako >= 0.1.1"]
+_extra_jinja = ["Jinja2"]
+
 tests_require = [
+    #'BeautifulSoup',
     'nose',
     'sieve',
-    'webtest',
+] + _extra_mako
 
-    # Required by tw2.core.testbase
-    'formencode',
+if sys.version_info[0] == 2 and sys.version_info[1] <= 5:
+    tests_require.append('WebTest<2.0')
+else:
+    tests_require.append('WebTest')
 
-    # Templating engines
-    'genshi',
-    'mako',
-    'jinja2',
-]
+if sys.version_info[0] < 3:
+    tests_require.append('FormEncode')
 
 setup(
     name='tw2.bootstrap.forms',
