@@ -11,7 +11,7 @@ import tw2.jquery as twj
 
 from .widgets import bootstrap_css, bootstrap_js, TextField
 
-# Preparation for better picker detection in sprox
+# For better calendar widget detection in sprox
 try:
     from tw2.forms import CalendarBase
 except ImportError:
@@ -101,8 +101,8 @@ class _DateFmtConverter(object):
         ('%H', '24HOUR'), ('%I', '12HOUR'),
         ('%M', 'MINUTE'),
         ('%S', 'SECOND'),
-#         ('%a', ''), ('%A', ''),
-#         ('%b', ''), ('%B', ''),
+        #('%a', ''), ('%A', ''),
+        #('%b', ''), ('%B', ''),
     ]
     int2py = [(y, x) for (x, y) in py2int]
 
@@ -141,7 +141,7 @@ class CalendarDatePicker(TextField, CalendarBase):
         self.format = datefmtconverter.py2js(self.date_format)
         if not self.validator:
             self.validator = twc.DateValidator(
-            format=self.date_format,
+                format=self.date_format,
             )
 
     def prepare(self):
