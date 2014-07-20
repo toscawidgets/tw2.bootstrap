@@ -17,29 +17,6 @@ try:
 except ImportError:
     CalendarBase = object
 
-# TODO: This is shitty if there are bad directives in these format strings...
-# see http://bugs.python.org/issue6641
-
-# Try to get sane representations for the date formats
-try:
-    import locale
-    #D_T_FMT = locale.nl_langinfo(locale.D_T_FMT)
-    D_FMT = locale.nl_langinfo(locale.D_FMT)
-    T_FMT = locale.nl_langinfo(locale.T_FMT)
-    _LOCALE = locale.getlocale()[0]
-except ImportError:
-    # Defaults from locales C and en_US
-    #D_T_FMT = '%a %b %e %H:%M:%S %Y'
-    D_FMT = '%m/%d/%y'
-    T_FMT = '%H:%M:%S'
-    _LOCALE = None
-finally:
-    D_T_FMT = D_FMT + ' ' + T_FMT
-    try:
-        LANG = _LOCALE.split('_', 1)[0]
-    except:
-        LANG = None
-
 __all__ = [
     'CalendarDatePicker',
     'CalendarTimePicker',
@@ -149,11 +126,7 @@ class CalendarDatePicker(TextField, CalendarBase):
     style = twc.Param(
         'Specify the template to use. [field, component]',
         default='field')
-#     format = twc.Param(
-#         "the date format, combination of d, dd, m, mm, yy, yyyy.",
-#         default=D_FMT)
-#     date_format = twc.Variable()
-    date_format = twc.Param(default=D_FMT)
+    date_format = twc.Param(default="%Y-%m-%d")
     format = twc.Variable()
     weekStart = twc.Param(
         "day of the week start.  0 for Sunday - 6 for Saturday",
@@ -222,10 +195,10 @@ class CalendarDateTimePicker(TextField, CalendarBase):
 
     resources = TextField.resources + datetimepicker_resources
 
-    date_format = twc.Param(default=D_T_FMT)
+    date_format = twc.Param(default="%Y-%m-%d %H:%M")
     format = twc.Variable()
 
-    language = twc.Param(default=LANG)
+    language = twc.Param(default=None)
 
     datetimepicker_args = twc.Param(default=dict())
 
