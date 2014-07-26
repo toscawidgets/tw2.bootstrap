@@ -9,7 +9,7 @@
       title="${c.help_text}" \
     % endif
     ${tw.attrs(attrs=c.container_attrs)} \
-    >
+    id="${c.compound_id or ''}:container">
     <label for="${c.compound_id or ''}">${c.label or ''}</label>
       ${c.display() | n}
       % if c.error_msg:

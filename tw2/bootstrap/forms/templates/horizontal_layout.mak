@@ -9,7 +9,7 @@
       title="${c.help_text}" \
     % endif
     ${tw.attrs(attrs=c.container_attrs)} \
-    >
+    id="${c.compound_id or ''}:container">
     <label class="control-label" for="${c.compound_id or ''}">${c.label or ''}</label>
     <div class="controls">
       ${c.display() | n}

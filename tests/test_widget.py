@@ -209,7 +209,7 @@ class TestHorizontalLayout(WidgetTest):
     }
 
     expected = """
-    <div class="control-group ">
+    <div id="bootstrap-test:foo:container" class="control-group ">
       <label class="control-label" for="bootstrap-test:foo">Foo</label>
       <div class="controls">
         <input id="bootstrap-test:foo"
@@ -239,7 +239,7 @@ class TestHorizontalForm(WidgetTest):
 
       <fieldset>
 
-        <div class="control-group ">
+        <div id="bootstrap-test:foo:container" class="control-group ">
           <label class="control-label" for="bootstrap-test:foo">Foo</label>
           <div class="controls">
             <input type="reset" class="btn"
@@ -267,7 +267,7 @@ class TestInlineLayout(WidgetTest):
     }
 
     expected = """
-    <span class="">
+    <span id="bootstrap-test:foo:container" class="">
       <label for="bootstrap-test:foo">Foo</label>
         <input name="bootstrap-test:foo" type="reset" class="btn" id="bootstrap-test:foo"/>
     </span>
@@ -290,7 +290,7 @@ class TestInlineForm(WidgetTest):
           class="form-inline">
       <span class="error"></span>
 
-      <span class="">
+      <span id="bootstrap-test:foo:container" class="">
         <label for="bootstrap-test:foo">Foo</label>
           <input name="bootstrap-test:foo" type="reset" class="btn" id="bootstrap-test:foo"/>
       </span>
@@ -507,17 +507,17 @@ class TestListFieldset(WidgetTest):
     expected = """<fieldset >
     <legend></legend>
     <ul >
-    <li class="odd">
+    <li id="field1:container" class="odd">
      <label for="field1">Field1</label>
         <input name="field1" id="field1" type="text" class="input-medium"/>
         <span id="field1:error" class="error"></span>
     </li>
-    <li class="even">
+    <li id="field2:container" class="even">
      <label for="field2">Field2</label>
         <input name="field2" id="field2" type="text" class="input-medium"/>
         <span id="field2:error" class="error"></span>
     </li>
-    <li class="odd">
+    <li id="field3:container" class="odd">
      <label for="field3">Field3</label>
         <input name="field3" id="field3" type="text" class="input-medium"/>
         <span id="field3:error" class="error"></span>
@@ -536,17 +536,17 @@ class TestListForm(WidgetTest):
     expected = """<form method="post" enctype="multipart/form-data">
      <span class="error"></span>
     <ul >
-    <li class="odd">
+    <li id="field1:container" class="odd">
      <label for="field1">Field1</label>
         <input name="field1" id="field1" type="text" class="input-medium"/>
         <span id="field1:error" class="error"></span>
     </li>
-    <li class="even">
+    <li id="field2:container" class="even">
      <label for="field2">Field2</label>
         <input name="field2" id="field2" type="text" class="input-medium"/>
         <span id="field2:error" class="error"></span>
     </li>
-    <li class="odd">
+    <li id="field3:container" class="odd">
      <label for="field3">Field3</label>
         <input name="field3" id="field3" type="text" class="input-medium"/>
         <span id="field3:error" class="error"></span>
@@ -566,15 +566,15 @@ class TestListLayout(WidgetTest):
     ]}
     expected = """\
 <ul>
-    <li class="odd">
+    <li id="field1:container" class="odd">
      <label for="field1">Field1</label>
         <input name="field1" id="field1" type="text" class="input-medium">
         <span id="field1:error" class="error"></span>
-    </li><li class="even">
+    </li><li id="field2:container" class="even">
      <label for="field2">Field2</label>
         <input name="field2" id="field2" type="text" class="input-medium">
         <span id="field2:error" class="error"></span>
-    </li><li class="odd">
+    </li><li id="field3:container" class="odd">
      <label for="field3">Field3</label>
         <input name="field3" id="field3" type="text" class="input-medium">
         <span id="field3:error" class="error"></span>
@@ -663,11 +663,11 @@ class TestRowLayout(WidgetTest):
              }
     expected = """
     <tr class="even">
-    <td>
+    <td id="field1:container">
         <input name="field1" id="field1" type="text" class="input-medium">
-    </td><td>
+    </td><td id="field2:container">
         <input name="field2" id="field2" type="text" class="input-medium">
-    </td><td>
+    </td><td id="field3:container">
         <input name="field3" id="field3" type="text" class="input-medium">
     </td>
     <td>
