@@ -11,31 +11,11 @@ import tw2.jquery as twj
 
 from .widgets import bootstrap_css, bootstrap_js, TextField
 
-# Preparation for better picker detection in sprox
+# For better calendar widget detection in sprox
 try:
     from tw2.forms import CalendarBase
 except ImportError:
     CalendarBase = object
-
-# Try to get sane representations for the date formats
-try:
-    import locale
-    #D_T_FMT = locale.nl_langinfo(locale.D_T_FMT)
-    D_FMT = locale.nl_langinfo(locale.D_FMT)
-    T_FMT = locale.nl_langinfo(locale.T_FMT)
-    _LOCALE = locale.getlocale()[0]
-except ImportError:
-    # Defaults from locales C and en_US
-    #D_T_FMT = '%a %b %e %H:%M:%S %Y'
-    D_FMT = '%m/%d/%y'
-    T_FMT = '%H:%M:%S'
-    _LOCALE = None
-finally:
-    D_T_FMT = D_FMT + ' ' + T_FMT
-    try:
-        LANG = _LOCALE.split('_', 1)[0]
-    except:
-        LANG = None
 
 __all__ = [
     'CalendarDatePicker',
@@ -100,10 +80,11 @@ class _DateFmtConverter(object):
     Uses an unambigiuous internal syntax as an intermediate conversion
     step.
     '''
+    # TODO: Regexp this?
     js2int = [
         ('dd', 'DAY'), ('d', 'DAY'),
         ('mm', 'MONTH'), ('m', 'MONTH'),
-        ('yyyy', '4YEAR'), ('yy', '2YEAR'),
+        ('yy', '2YEAR'), ('yyyy', '4YEAR'),
         ('hh', '24HOUR'), ('h', '24HOUR'), ('HH', '12HOUR'), ('H', '12HOUR'),
         ('ii', 'MINUTE'), ('i', 'MINUTE'),
         ('ss', 'SECOND'), ('s', 'SECOND'),
@@ -120,8 +101,8 @@ class _DateFmtConverter(object):
         ('%H', '24HOUR'), ('%I', '12HOUR'),
         ('%M', 'MINUTE'),
         ('%S', 'SECOND'),
-        ('%a', ''), ('%A', ''),
-        ('%b', ''), ('%B', ''),
+        #('%a', ''), ('%A', ''),
+        #('%b', ''), ('%B', ''),
     ]
     int2py = [(y, x) for (x, y) in py2int]
 
@@ -145,10 +126,8 @@ class CalendarDatePicker(TextField, CalendarBase):
     style = twc.Param(
         'Specify the template to use. [field, component]',
         default='field')
-    format = twc.Param(
-        "the date format, combination of d, dd, m, mm, yy, yyyy.",
-        default=D_FMT)
-    date_format = twc.Variable()
+    date_format = twc.Param(default="%Y-%m-%d")
+    format = twc.Variable()
     weekStart = twc.Param(
         "day of the week start.  0 for Sunday - 6 for Saturday",
         default=0)
@@ -159,10 +138,10 @@ class CalendarDatePicker(TextField, CalendarBase):
 
     def __init__(self, *args, **kw):
         super(CalendarDatePicker, self).__init__(*args, **kw)
-        self.date_format = datefmtconverter.js2py(self.format)
+        self.format = datefmtconverter.py2js(self.date_format)
         if not self.validator:
             self.validator = twc.DateValidator(
-            format=self.date_format,
+                format=self.date_format,
             )
 
     def prepare(self):
@@ -216,12 +195,17 @@ class CalendarDateTimePicker(TextField, CalendarBase):
 
     resources = TextField.resources + datetimepicker_resources
 
-    date_format = twc.Param(default=D_T_FMT)
+    date_format = twc.Param(default="%Y-%m-%d %H:%M")
     format = twc.Variable()
 
-    language = twc.Param(default=LANG)
+    language = twc.Param(default=None)
 
     datetimepicker_args = twc.Param(default=dict())
+
+    default = twc.Param(
+        'Default value (datetime) for the widget.  If set to a function, ' +
+        'it will be called each time before displaying.',
+        default=datetime.now)
 
     def __init__(self, *args, **kw):
         super(CalendarDateTimePicker, self).__init__(*args, **kw)
@@ -236,11 +220,17 @@ class CalendarDateTimePicker(TextField, CalendarBase):
 
     def prepare(self):
         super(CalendarDateTimePicker, self).prepare()
-        self.format = datefmtconverter.py2js(self.date_format)
         self.add_call(twj.jQuery(self.selector).datetimepicker(dict(
             format=self.format,
             language=self.language,
             **self.datetimepicker_args
         )))
-        if 'id' in self.attrs:
-            del self.attrs['id']
+        if not self.value:
+            if callable(self.default):
+                self.value = self.default()
+            else:
+                self.value = self.default
+        try:
+            self.value = unicode(self.value.strftime(self.date_format))
+        except:
+            pass
