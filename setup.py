@@ -30,7 +30,7 @@ if sys.version_info[0] < 3:
 
 setup(
     name='tw2.bootstrap.forms',
-    version='2.2.0',
+    version='2.2.2',
     description="A drop-in replacement for tw2.forms but with bootstrap!",
     long_description=open('README.rst').read(),
     author='Moritz Schlarb, Ralph Bean & contributors',
