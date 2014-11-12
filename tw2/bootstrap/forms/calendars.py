@@ -150,7 +150,7 @@ class CalendarDatePicker(TextField, CalendarBase):
             format=self.format,
             weekStart=self.weekStart,
         )))
-        if not self.value:
+        if not self.value and self.required:
             if callable(self.default):
                 self.value = self.default()
             else:
@@ -225,7 +225,7 @@ class CalendarDateTimePicker(TextField, CalendarBase):
             language=self.language,
             **self.datetimepicker_args
         )))
-        if not self.value:
+        if not self.value and self.required:
             if callable(self.default):
                 self.value = self.default()
             else:
